@@ -1,178 +1,231 @@
 <!DOCTYPE html>
-<html lang="tr" data-bs-theme="dark">
+<html lang="tr" class="notranslate" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kargo Takip Sistemi | Canlı Operasyon Merkezi</title>
-    <!-- Bootstrap 5.3 & FontAwesome & Inter Font -->
+    <meta name="google" content="notranslate">
+    <title>Emine Logistics | Kargo Takip ve Operasyon Merkezi</title>
+    
+    <!-- Bootstrap 5.3 & FontAwesome & Inter Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-body: #090d16;
-            --bg-card: #111827;
-            --bg-card-hover: #172236;
-            --border-color: #1f293d;
-            --border-highlight: #334155;
-            --text-title: #f8fafc;
-            --text-body: #94a3b8;
-            --primary: #3b82f6;
-            --primary-glow: rgba(59, 130, 246, 0.25);
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --purple: #8b5cf6;
-        }
-
-        * {
-            box-sizing: border-box;
+            --bg-body: #0a0e1a;
+            --bg-card: #121829;
+            --bg-card-hover: #18223a;
+            --border-card: #1e2942;
+            --border-glow: rgba(99, 102, 241, 0.3);
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            --accent-blue: #38bdf8;
+            --accent-purple: #a855f7;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-body);
-            color: var(--text-body);
+            color: var(--text-main);
             min-height: 100vh;
-            margin: 0;
-            padding-bottom: 40px;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+            padding-bottom: 50px;
         }
 
-        /* Navbar Styling */
+        /* Navbar */
         .navbar-custom {
-            background-color: rgba(17, 24, 39, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(18, 24, 41, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-card);
         }
 
-        .brand-logo {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            border-radius: 12px;
+        .brand-avatar {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-gradient);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 12px var(--primary-glow);
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
         }
 
-        /* Card Styles */
-        .custom-card {
+        .user-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-card);
+            padding: 0.35rem 0.85rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        /* Glass Cards */
+        .glass-card {
             background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
-            transition: all 0.2s ease;
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+            transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
+        .glass-card:hover {
+            border-color: #2e3d5e;
+        }
+
+        /* Stat Cards */
         .stat-card {
-            padding: 1.25rem;
+            padding: 1.4rem;
             position: relative;
             overflow: hidden;
         }
 
-        .stat-card:hover {
-            border-color: var(--border-highlight);
-            transform: translateY(-2px);
-        }
-
-        .stat-card::after {
+        .stat-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
-            height: 100%;
+            right: 0;
+            height: 3px;
         }
 
-        .stat-total::after { background: #3b82f6; }
-        .stat-delivered::after { background: #10b981; }
-        .stat-transit::after { background: #f59e0b; }
-        .stat-cancelled::after { background: #ef4444; }
+        .stat-total::before { background: linear-gradient(90deg, #6366f1, #38bdf8); }
+        .stat-delivered::before { background: linear-gradient(90deg, #10b981, #34d399); }
+        .stat-transit::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .stat-cancelled::before { background: linear-gradient(90deg, #ef4444, #f87171); }
 
-        .stat-icon-wrapper {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.35rem;
+            font-size: 1.4rem;
         }
 
-        /* Status Badges */
-        .badge-pill-status {
-            padding: 0.35rem 0.75rem;
-            border-radius: 30px;
-            font-size: 0.75rem;
+        /* Custom Status Badges */
+        .status-badge {
+            padding: 0.4rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 0.35rem;
+            gap: 0.4rem;
             letter-spacing: 0.02em;
         }
 
-        .status-dot {
-            width: 6px;
-            height: 6px;
+        .badge-dot {
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
+            display: inline-block;
         }
 
-        .badge-CREATED { background: rgba(59, 130, 246, 0.12); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.25); }
-        .badge-CREATED .status-dot { background: #60a5fa; }
+        .status-CREATED { background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.3); }
+        .status-CREATED .badge-dot { background: #818cf8; }
 
-        .badge-SHIPPED { background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25); }
-        .badge-SHIPPED .status-dot { background: #fbbf24; }
+        .status-SHIPPED { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .status-SHIPPED .badge-dot { background: #fbbf24; }
 
-        .badge-IN_TRANSIT { background: rgba(139, 92, 246, 0.12); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.25); }
-        .badge-IN_TRANSIT .status-dot { background: #a78bfa; }
+        .status-IN_TRANSIT { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+        .status-IN_TRANSIT .badge-dot { background: #c084fc; }
 
-        .badge-OUT_FOR_DELIVERY { background: rgba(236, 72, 153, 0.12); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.25); }
-        .badge-OUT_FOR_DELIVERY .status-dot { background: #f472b6; }
+        .status-OUT_FOR_DELIVERY { background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
+        .status-OUT_FOR_DELIVERY .badge-dot { background: #f472b6; }
 
-        .badge-DELIVERED { background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25); }
-        .badge-DELIVERED .status-dot { background: #34d399; }
+        .status-DELIVERED { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .status-DELIVERED .badge-dot { background: #34d399; }
 
-        .badge-CANCELLED { background: rgba(239, 68, 68, 0.12); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.25); }
-        .badge-CANCELLED .status-dot { background: #f87171; }
+        .status-CANCELLED { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .status-CANCELLED .badge-dot { background: #f87171; }
 
-        /* Form Inputs */
+        /* Form styling */
         .form-control, .form-select {
-            background-color: #0b0f19 !important;
-            border: 1px solid var(--border-color) !important;
+            background-color: #090e1a !important;
+            border: 1px solid var(--border-card) !important;
             color: #f1f5f9 !important;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            padding: 0.65rem 0.9rem;
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            font-size: 0.92rem;
         }
 
         .form-control:focus, .form-select:focus {
-            border-color: var(--primary) !important;
-            box-shadow: 0 0 0 3px var(--primary-glow) !important;
+            border-color: #6366f1 !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
         }
 
-        /* Table Design */
+        /* Buttons */
+        .btn-gradient-primary {
+            background: var(--primary-gradient);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 0.75rem 1.25rem;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-gradient-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.45);
+            color: white;
+        }
+
+        .btn-nav-action {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-card);
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 0.5rem 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-nav-action:hover {
+            background: rgba(255, 255, 255, 0.09);
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        /* Table */
         .table-custom {
             margin-bottom: 0;
-            color: #cbd5e1;
+            color: #e2e8f0;
         }
 
         .table-custom thead th {
-            background-color: rgba(11, 15, 25, 0.7);
+            background-color: rgba(9, 14, 26, 0.8);
             color: #64748b;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.76rem;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            padding: 0.9rem 1rem;
-            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.1rem;
+            border-bottom: 1px solid var(--border-card);
         }
 
         .table-custom tbody tr {
-            transition: background-color 0.15s;
+            transition: background-color 0.15s ease;
         }
 
         .table-custom tbody tr:hover {
@@ -180,149 +233,128 @@
         }
 
         .table-custom tbody td {
-            padding: 0.9rem 1rem;
-            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.1rem;
+            border-bottom: 1px solid var(--border-card);
             vertical-align: middle;
         }
 
-        /* Buttons */
-        .btn-primary-action {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            border: none;
-            font-weight: 600;
-            border-radius: 10px;
-            padding: 0.65rem 1.25rem;
-            box-shadow: 0 4px 12px var(--primary-glow);
-            transition: all 0.2s;
-        }
-
-        .btn-primary-action:hover {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            transform: translateY(-1px);
-            color: white;
-        }
-
-        .btn-service-link {
-            background-color: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-color);
-            color: #e2e8f0;
-            border-radius: 10px;
-            padding: 0.45rem 0.85rem;
-            font-size: 0.82rem;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            transition: all 0.2s;
-        }
-
-        .btn-service-link:hover {
-            background-color: rgba(255, 255, 255, 0.08);
-            border-color: var(--border-highlight);
-            color: white;
-        }
-
-        /* Pulse Dot */
-        .live-indicator {
+        /* Pulse Ring */
+        .pulse-live {
             width: 8px;
             height: 8px;
             background-color: #10b981;
             border-radius: 50%;
             display: inline-block;
             box-shadow: 0 0 0 rgba(16, 185, 129, 0.6);
-            animation: pulse-ring 2s infinite;
+            animation: pulse-animation 2s infinite;
         }
 
-        @keyframes pulse-ring {
+        @keyframes pulse-animation {
             0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+            70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b0f19;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #243046;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #334155;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
+    <!-- Navigation Header -->
     <nav class="navbar navbar-custom sticky-top py-3 mb-4">
         <div class="container-fluid px-4">
             
             <div class="d-flex align-items-center gap-3">
-                <div class="brand-logo">
-                    <i class="fa-solid fa-truck-fast"></i>
+                <div class="brand-avatar">
+                    <i class="fa-solid fa-gem"></i>
                 </div>
                 <div>
                     <div class="d-flex align-items-center gap-2">
-                        <span class="fw-bold text-white fs-5 tracking-tight">Kargo Takip Sistemi</span>
-                        <span class="badge bg-dark border border-secondary text-secondary small px-2 py-1">Kafka & Grafana Edition</span>
+                        <span class="fw-bold text-white fs-5 tracking-tight">Emine Logistics</span>
+                        <span class="badge bg-purple bg-opacity-25 text-purple border border-purple-subtle small px-2 py-1" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3);">
+                            <i class="fa-solid fa-crown text-warning me-1"></i>Özel Panel
+                        </span>
                     </div>
-                    <div class="small text-muted" style="font-size: 0.78rem;">
-                        <span class="live-indicator me-1"></span> Sistem Aktif • SQLite & Kafka Olay Akışı
+                    <div class="small text-muted" style="font-size: 0.8rem;">
+                        <span class="pulse-live me-1"></span> Canlı Sistem Aktif • Apache Kafka & Prometheus Entegre
                     </div>
                 </div>
             </div>
 
-            <!-- Service Quick Links -->
-            <div class="d-flex align-items-center gap-2 mt-2 mt-md-0 flex-wrap">
-                <a href="http://localhost:3000/dashboards" target="_blank" class="btn-service-link">
-                    <i class="fa-solid fa-chart-line text-warning"></i> Grafana Dashboard
-                </a>
-                <a href="http://localhost:9090" target="_blank" class="btn-service-link">
-                    <i class="fa-solid fa-fire text-danger"></i> Prometheus
-                </a>
-                <a href="/metrics" target="_blank" class="btn-service-link">
-                    <i class="fa-solid fa-code text-info"></i> /metrics
-                </a>
+            <!-- Header Quick Actions & Profile -->
+            <div class="d-flex align-items-center gap-3 flex-wrap">
+                <div class="user-pill d-none d-md-flex">
+                    <div class="rounded-circle bg-primary bg-opacity-25 text-primary d-flex align-items-center justify-content-center" style="width: 26px; height: 26px; font-weight: bold; font-size: 0.75rem;">
+                        E
+                    </div>
+                    <span class="text-white fw-medium">Emine</span>
+                    <span class="badge bg-success bg-opacity-25 text-success rounded-pill px-2 py-0" style="font-size: 0.7rem;">Yönetici</span>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <a href="http://localhost:3000/dashboards" target="_blank" class="btn-nav-action">
+                        <i class="fa-solid fa-chart-line text-warning"></i> Grafana
+                    </a>
+                    <a href="http://localhost:9090" target="_blank" class="btn-nav-action">
+                        <i class="fa-solid fa-fire text-danger"></i> Prometheus
+                    </a>
+                    <a href="/metrics" target="_blank" class="btn-nav-action">
+                        <i class="fa-solid fa-terminal text-info"></i> /metrics
+                    </a>
+                </div>
             </div>
 
         </div>
     </nav>
 
-    <!-- Main Application Body -->
+    <!-- Main Container -->
     <div class="container-fluid px-4">
 
-        <!-- Top Stat Counter Cards -->
+        <!-- Personalized Welcome Banner -->
+        <div class="glass-card p-3 p-md-4 mb-4" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.06) 100%);">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <div>
+                    <h5 class="fw-bold text-white mb-1">
+                        👋 Hoş Geldiniz, Emine Hanım
+                    </h5>
+                    <p class="text-muted small mb-0">
+                        Kargo gönderilerini yönetebilir, durumlarını anlık güncelleyebilir ve Kafka üzerinden olay akışını canlı izleyebilirsiniz.
+                    </p>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-light rounded-pill px-3" onclick="autofillSample()">
+                        <i class="fa-solid fa-wand-magic-sparkles text-warning me-1"></i> Örnek Veri Doldur
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="resetDatabase()">
+                        <i class="fa-solid fa-trash-arrow-up me-1"></i> Tümünü Sıfırla
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4 Key Stat Metrics -->
         <div class="row g-3 mb-4">
             
             <div class="col-xl-3 col-sm-6">
-                <div class="custom-card stat-card stat-total">
+                <div class="glass-card stat-card stat-total">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <span class="text-muted small fw-semibold text-uppercase tracking-wider">Toplam Kargo</span>
                             <h2 class="fw-bold text-white mb-0 mt-1" id="stat-total">0</h2>
                         </div>
-                        <div class="stat-icon-wrapper bg-primary bg-opacity-10 text-primary">
-                            <i class="fa-solid fa-box-archive"></i>
+                        <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                            <i class="fa-solid fa-boxes-stacked"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-xl-3 col-sm-6">
-                <div class="custom-card stat-card stat-delivered">
+                <div class="glass-card stat-card stat-delivered">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <span class="text-muted small fw-semibold text-uppercase tracking-wider">Teslim Edilen</span>
                             <h2 class="fw-bold text-success mb-0 mt-1" id="stat-delivered">0</h2>
                         </div>
-                        <div class="stat-icon-wrapper bg-success bg-opacity-10 text-success">
+                        <div class="stat-icon bg-success bg-opacity-10 text-success">
                             <i class="fa-solid fa-circle-check"></i>
                         </div>
                     </div>
@@ -330,28 +362,28 @@
             </div>
 
             <div class="col-xl-3 col-sm-6">
-                <div class="custom-card stat-card stat-transit">
+                <div class="glass-card stat-card stat-transit">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <span class="text-muted small fw-semibold text-uppercase tracking-wider">Yolda / Dağıtımda</span>
                             <h2 class="fw-bold text-warning mb-0 mt-1" id="stat-intransit">0</h2>
                         </div>
-                        <div class="stat-icon-wrapper bg-warning bg-opacity-10 text-warning">
-                            <i class="fa-solid fa-truck-ramp-box"></i>
+                        <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                            <i class="fa-solid fa-truck-fast"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-xl-3 col-sm-6">
-                <div class="custom-card stat-card stat-cancelled">
+                <div class="glass-card stat-card stat-cancelled">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <span class="text-muted small fw-semibold text-uppercase tracking-wider">İptal Edilen</span>
                             <h2 class="fw-bold text-danger mb-0 mt-1" id="stat-cancelled">0</h2>
                         </div>
-                        <div class="stat-icon-wrapper bg-danger bg-opacity-10 text-danger">
-                            <i class="fa-solid fa-ban"></i>
+                        <div class="stat-icon bg-danger bg-opacity-10 text-danger">
+                            <i class="fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
                 </div>
@@ -359,35 +391,35 @@
 
         </div>
 
-        <!-- Layout: Left (Controls & New Entry) / Right (Table & Actions) -->
+        <!-- Main Workspace Grid -->
         <div class="row g-4">
             
-            <!-- Left Controls Column -->
+            <!-- Left Side: New Cargo & Test Runner -->
             <div class="col-xl-4 col-lg-5">
                 
-                <!-- Create Cargo Form Card -->
-                <div class="custom-card p-4 mb-4">
+                <!-- Create Cargo Form -->
+                <div class="glass-card p-4 mb-4">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h6 class="fw-bold text-white mb-0">
-                            <i class="fa-solid fa-circle-plus text-primary me-2"></i>Yeni Kargo Kaydı
+                            <i class="fa-solid fa-paper-plane text-primary me-2"></i>Yeni Kargo Kaydet
                         </h6>
-                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle small">Kafka Producer</span>
+                        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary-subtle small">Kafka Olayı Fırlatır</span>
                     </div>
 
                     <form id="createCargoForm">
                         <div class="mb-3">
                             <label class="form-label small text-muted fw-semibold">Takip Numarası</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="trackingNumber" placeholder="KRG-1001" required>
+                                <input type="text" class="form-control font-monospace" id="trackingNumber" placeholder="EMN-1001" required>
                                 <button type="button" class="btn btn-outline-secondary" onclick="generateTrackingNumber()" title="Rastgele Üret">
-                                    <i class="fa-solid fa-dice me-1"></i> Rastgele
+                                    <i class="fa-solid fa-shuffle me-1"></i> Üret
                                 </button>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label small text-muted fw-semibold">Gönderici</label>
-                            <input type="text" class="form-control" id="sender" placeholder="Örn: Ahmet Yılmaz" required>
+                            <input type="text" class="form-control" id="sender" placeholder="Örn: Emine Yılmaz" required>
                         </div>
 
                         <div class="mb-3">
@@ -395,68 +427,63 @@
                             <input type="text" class="form-control" id="receiver" placeholder="Örn: Mehmet Demir" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary-action w-100 mt-2">
-                            <i class="fa-solid fa-paper-plane me-2"></i>Kargoyu Kaydet ve Yayınla
+                        <button type="submit" class="btn btn-gradient-primary w-100 mt-2">
+                            <i class="fa-solid fa-plus-circle me-1"></i> Kargoyu Sisteme Kaydet
                         </button>
                     </form>
                 </div>
 
-                <!-- Simulation & Reset Card -->
-                <div class="custom-card p-4">
+                <!-- 20-Cargo Automated Scenario Runner -->
+                <div class="glass-card p-4">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <h6 class="fw-bold text-white mb-0">
-                            <i class="fa-solid fa-bolt text-warning me-2"></i>Ödev Test Senaryosu
+                            <i class="fa-solid fa-play-circle text-warning me-2"></i>20 Kargoluk Ödev Senaryosu
                         </h6>
-                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle small">Otomatik Test</span>
+                        <span class="badge bg-warning bg-opacity-10 text-warning border border-warning-subtle small">Tek Tık Test</span>
                     </div>
 
                     <p class="text-muted small mb-3" style="line-height: 1.5;">
-                        PDF'de istenen <strong>20 kargo açma</strong>, <strong>10'unu yola çıkarma</strong>, <strong>5'ini teslim etme</strong> ve <strong>2'sini iptal etme</strong> akışını tek hamlede simüle eder.
+                        PDF'deki 20 kargo açma, 10'unu yola çıkarma, 5'ini teslim etme ve 2'sini iptal etme akışını otomatik tamamlar.
                     </p>
 
-                    <div class="d-flex gap-2">
-                        <button id="btnRunScenario" class="btn btn-warning flex-grow-1 fw-bold text-dark py-2" onclick="runSimulation()">
-                            <i class="fa-solid fa-play me-1"></i> 20 Kargoluk Senaryoyu Çalıştır
-                        </button>
-                        <button class="btn btn-outline-danger px-3" onclick="resetDatabase()" title="Veritabanını Sıfırla">
-                            <i class="fa-solid fa-rotate-left"></i>
-                        </button>
-                    </div>
+                    <button id="btnRunScenario" class="btn btn-warning w-100 fw-bold text-dark py-2 rounded-3" onclick="runSimulation()">
+                        <i class="fa-solid fa-bolt me-1"></i> Senaryoyu Başlat
+                    </button>
 
                     <div id="scenarioProgress" class="small text-warning mt-3 d-none">
                         <div class="spinner-border spinner-border-sm me-2" role="status"></div>
-                        <span>Senaryo işleniyor, veriler akıyor...</span>
+                        <span>Kargolar işleniyor, lütfen bekleyin...</span>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Right Column: Live Table -->
+            <!-- Right Side: Cargo Table & Operations -->
             <div class="col-xl-8 col-lg-7">
-                <div class="custom-card p-4">
+                <div class="glass-card p-4">
                     
-                    <!-- Table Header & Controls -->
+                    <!-- Search and Filters -->
                     <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
                         <div>
                             <h6 class="fw-bold text-white mb-0">
-                                <i class="fa-solid fa-layer-group text-success me-2"></i>Canlı Kargo Operasyonları
+                                <i class="fa-solid fa-list-check text-success me-2"></i>Kargo Listesi & Operasyonlar
                             </h6>
-                            <span class="text-muted small">SQLite Veritabanı ve Güncel Durumlar</span>
+                            <span class="text-muted small">Gerçek SQLite Veritabanı Kayıtları</span>
                         </div>
 
-                        <div class="d-flex align-items-center gap-2">
-                            <!-- Filter by status -->
-                            <select id="statusFilter" class="form-select form-select-sm" onchange="filterCargos()" style="width: 140px;">
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <!-- Status Filter Dropdown -->
+                            <select id="statusFilter" class="form-select form-select-sm" onchange="filterCargos()" style="width: 155px;">
                                 <option value="">Tüm Durumlar</option>
-                                <option value="CREATED">CREATED</option>
-                                <option value="SHIPPED">SHIPPED</option>
-                                <option value="IN_TRANSIT">IN_TRANSIT</option>
-                                <option value="OUT_FOR_DELIVERY">OUT_FOR_DELIVERY</option>
-                                <option value="DELIVERED">DELIVERED</option>
-                                <option value="CANCELLED">CANCELLED</option>
+                                <option value="CREATED">Kayıt Açıldı (CREATED)</option>
+                                <option value="SHIPPED">Kargoya Verildi (SHIPPED)</option>
+                                <option value="IN_TRANSIT">Yolda (IN_TRANSIT)</option>
+                                <option value="OUT_FOR_DELIVERY">Dağıtımda (OUT_FOR_DELIVERY)</option>
+                                <option value="DELIVERED">Teslim Edildi (DELIVERED)</option>
+                                <option value="CANCELLED">İptal Edildi (CANCELLED)</option>
                             </select>
 
-                            <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Takip no / kişi ara..." onkeyup="filterCargos()" style="width: 180px;">
+                            <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Takip no / kişi ara..." onkeyup="filterCargos()" style="width: 170px;">
                             
                             <button class="btn btn-outline-secondary btn-sm" onclick="fetchCargos()" title="Listeyi Yenile">
                                 <i class="fa-solid fa-arrows-rotate"></i>
@@ -464,16 +491,16 @@
                         </div>
                     </div>
 
-                    <!-- Cargo Table -->
+                    <!-- Table -->
                     <div class="table-responsive" style="max-height: 520px;">
                         <table class="table table-custom align-middle">
                             <thead class="sticky-top">
                                 <tr>
-                                    <th>ID</th>
+                                    <th># ID</th>
                                     <th>Takip No</th>
                                     <th>Gönderici ➔ Alıcı</th>
-                                    <th>Mevcut Durum</th>
-                                    <th>Durum Güncelle</th>
+                                    <th>Kargo Durumu</th>
+                                    <th>Durum Değiştir</th>
                                     <th class="text-end">İşlem</th>
                                 </tr>
                             </thead>
@@ -488,9 +515,10 @@
                         </table>
                     </div>
 
+                    <!-- Footer Info -->
                     <div class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top border-secondary border-opacity-25 small text-muted">
-                        <span id="rowCountLabel">Toplam 0 kargo listeleniyor</span>
-                        <span class="text-secondary"><i class="fa-solid fa-clock me-1"></i>Oto-Yenileme: 4 saniye</span>
+                        <span id="rowCountLabel">Toplam 0 kargo</span>
+                        <span><i class="fa-solid fa-rotate text-secondary me-1"></i>Otomatik Canlı Senkronizasyon (4s)</span>
                     </div>
 
                 </div>
@@ -518,6 +546,16 @@
     <script>
         let allCargos = [];
 
+        // Descriptive Turkish labels for statuses
+        const statusLabels = {
+            'CREATED': 'Kayıt Açıldı (CREATED)',
+            'SHIPPED': 'Kargoya Verildi (SHIPPED)',
+            'IN_TRANSIT': 'Yolda (IN_TRANSIT)',
+            'OUT_FOR_DELIVERY': 'Kurye Dağıtımda (OUT_FOR_DELIVERY)',
+            'DELIVERED': 'Teslim Edildi (DELIVERED)',
+            'CANCELLED': 'İptal Edildi (CANCELLED)'
+        };
+
         function showToast(message, type = 'success') {
             const toastEl = document.getElementById('liveToast');
             const toastMessage = document.getElementById('toastMessage');
@@ -529,7 +567,19 @@
 
         function generateTrackingNumber() {
             const rand = Math.floor(1000 + Math.random() * 9000);
-            document.getElementById('trackingNumber').value = `KRG-${rand}`;
+            document.getElementById('trackingNumber').value = `EMN-${rand}`;
+        }
+
+        function autofillSample() {
+            const senders = ['Emine Yılmaz', 'Ayşe Demir', 'Zeynep Kaya', 'Elif Çelik', 'Fatma Şahin'];
+            const receivers = ['Mehmet Kaya', 'Can Yıldız', 'Burak Aksoy', 'Selin Aydın', 'Deniz Arslan'];
+            const rSender = senders[Math.floor(Math.random() * senders.length)];
+            const rReceiver = receivers[Math.floor(Math.random() * receivers.length)];
+            
+            generateTrackingNumber();
+            document.getElementById('sender').value = rSender;
+            document.getElementById('receiver').value = rReceiver;
+            showToast('Örnek veriler forma aktarıldı.');
         }
 
         async function fetchCargos() {
@@ -558,7 +608,7 @@
 
         function renderTable(cargos) {
             const tbody = document.getElementById('cargoTableBody');
-            document.getElementById('rowCountLabel').innerText = `Toplam ${cargos.length} kargo gösteriliyor`;
+            document.getElementById('rowCountLabel').innerText = `Toplam ${cargos.length} kargo listeleniyor`;
 
             if (cargos.length === 0) {
                 tbody.innerHTML = `
@@ -578,29 +628,29 @@
                 const isTerminal = ['DELIVERED', 'CANCELLED'].includes(c.status);
                 
                 const statusOptions = statuses.map(s => `
-                    <option value="${s}" ${s === c.status ? 'selected' : ''}>${s}</option>
+                    <option value="${s}" ${s === c.status ? 'selected' : ''}>${statusLabels[s] || s}</option>
                 `).join('');
 
                 return `
                     <tr>
                         <td class="text-muted fw-bold">#${c.id}</td>
                         <td>
-                            <span class="fw-bold text-white">${c.tracking_number}</span>
+                            <span class="fw-bold text-white font-monospace">${c.tracking_number}</span>
                             <div class="text-muted" style="font-size: 0.72rem;">${c.created_at || ''}</div>
                         </td>
                         <td>
-                            <div class="text-white small fw-medium">${c.sender}</div>
+                            <div class="text-white small fw-semibold">${c.sender}</div>
                             <div class="text-muted small"><i class="fa-solid fa-arrow-right-long text-secondary me-1" style="font-size: 0.7rem;"></i>${c.receiver}</div>
                         </td>
                         <td>
-                            <span class="badge-pill-status badge-${c.status}">
-                                <span class="status-dot"></span>
-                                ${c.status}
+                            <span class="status-badge status-${c.status}">
+                                <span class="badge-dot"></span>
+                                ${statusLabels[c.status] || c.status}
                             </span>
                         </td>
-                        <td style="min-width: 160px;">
+                        <td style="min-width: 175px;">
                             ${isTerminal ? `
-                                <span class="text-muted small"><i class="fa-solid fa-lock me-1"></i>Son Durum (${c.status})</span>
+                                <span class="text-muted small fw-medium"><i class="fa-solid fa-lock me-1"></i>Kilitli (${c.status})</span>
                             ` : `
                                 <select class="form-select form-select-sm" onchange="changeStatus(${c.id}, this.value)">
                                     ${statusOptions}
@@ -608,7 +658,7 @@
                             `}
                         </td>
                         <td class="text-end">
-                            <button class="btn btn-outline-danger btn-sm" onclick="deleteCargo(${c.id})" title="Kargoyu Sil">
+                            <button class="btn btn-outline-danger btn-sm rounded-circle p-1" style="width: 32px; height: 32px;" onclick="deleteCargo(${c.id})" title="Kargoyu Sil">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </td>
@@ -647,7 +697,7 @@
                     fetchCargos();
                     return;
                 }
-                showToast(`Kargo #${id} durumu "${newStatus}" olarak güncellendi.`);
+                showToast(`Kargo #${id} durumu "${newStatus}" yapıldı ve Kafka'ya iletildi.`);
                 fetchCargos();
             } catch (err) {
                 showToast('Hata: ' + err.message, 'error');
@@ -703,7 +753,7 @@
                     showToast(data.error || 'Kargo oluşturulamadı', 'error');
                     return;
                 }
-                showToast(`"${tracking_number}" kargosu oluşturuldu ve Kafka'ya iletildi.`);
+                showToast(`"${tracking_number}" kargosu kaydedildi ve Kafka'ya fırlatıldı!`);
                 document.getElementById('createCargoForm').reset();
                 generateTrackingNumber();
                 fetchCargos();
@@ -722,13 +772,13 @@
                 // 1. Reset first
                 await fetch('/reset', { method: 'POST' });
 
-                // 2. Create 20 cargos
+                // 2. Create 20 cargos with EMN- prefix
                 for (let i = 1; i <= 20; i++) {
                     await fetch('/cargo', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            tracking_number: `KRG-${1000 + i}`,
+                            tracking_number: `EMN-${1000 + i}`,
                             sender: `Müşteri-${i}`,
                             receiver: `Alıcı-${i}`
                         })
@@ -768,7 +818,7 @@
                     }
                 }
 
-                showToast('20 kargoluk senaryo başarıyla icra edildi! Grafana ve tablolar güncellendi.', 'success');
+                showToast('20 kargoluk senaryo tamamlandı! Grafana ve tablolar güncellendi.', 'success');
                 fetchCargos();
             } catch (err) {
                 showToast('Hata: ' + err.message, 'error');
