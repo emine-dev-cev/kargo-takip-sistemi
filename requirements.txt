@@ -1,0 +1,6 @@
+Flask==3.0.2
+pytest==8.0.0
+kafka-python==3.0.11
+prometheus-client==0.26.0
+requests==2.33.1
+PyYAML==6.0.3

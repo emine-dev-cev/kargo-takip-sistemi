@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="tr" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kargo Takip Sistemi | Canlı Operasyon Merkezi</title>
+    <!-- Bootstrap 5.3 & FontAwesome & Inter Font -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-body: #090d16;
+            --bg-card: #111827;
+            --bg-card-hover: #172236;
+            --border-color: #1f293d;
+            --border-highlight: #334155;
+            --text-title: #f8fafc;
+            --text-body: #94a3b8;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.25);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            min-height: 100vh;
+            margin: 0;
+            padding-bottom: 40px;
+        }
+
+        /* Navbar Styling */
+        .navbar-custom {
+            background-color: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        /* Card Styles */
+        .custom-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .stat-card {
+            padding: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-highlight);
+            transform: translateY(-2px);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+
+        .stat-total::after { background: #3b82f6; }
+        .stat-delivered::after { background: #10b981; }
+        .stat-transit::after { background: #f59e0b; }
+        .stat-cancelled::after { background: #ef4444; }
+
+        .stat-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+        }
+
+        /* Status Badges */
+        .badge-pill-status {
+            padding: 0.35rem 0.75rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            letter-spacing: 0.02em;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .badge-CREATED { background: rgba(59, 130, 246, 0.12); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.25); }
+        .badge-CREATED .status-dot { background: #60a5fa; }
+
+        .badge-SHIPPED { background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25); }
+        .badge-SHIPPED .status-dot { background: #fbbf24; }
+
+        .badge-IN_TRANSIT { background: rgba(139, 92, 246, 0.12); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.25); }
+        .badge-IN_TRANSIT .status-dot { background: #a78bfa; }
+
+        .badge-OUT_FOR_DELIVERY { background: rgba(236, 72, 153, 0.12); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.25); }
+        .badge-OUT_FOR_DELIVERY .status-dot { background: #f472b6; }
+
+        .badge-DELIVERED { background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25); }
+        .badge-DELIVERED .status-dot { background: #34d399; }
+
+        .badge-CANCELLED { background: rgba(239, 68, 68, 0.12); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.25); }
+        .badge-CANCELLED .status-dot { background: #f87171; }
+
+        /* Form Inputs */
+        .form-control, .form-select {
+            background-color: #0b0f19 !important;
+            border: 1px solid var(--border-color) !important;
+            color: #f1f5f9 !important;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            padding: 0.65rem 0.9rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 3px var(--primary-glow) !important;
+        }
+
+        /* Table Design */
+        .table-custom {
+            margin-bottom: 0;
+            color: #cbd5e1;
+        }
+
+        .table-custom thead th {
+            background-color: rgba(11, 15, 25, 0.7);
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table-custom tbody tr {
+            transition: background-color 0.15s;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: var(--bg-card-hover) !important;
+        }
+
+        .table-custom tbody td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        /* Buttons */
+        .btn-primary-action {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 0.65rem 1.25rem;
+            box-shadow: 0 4px 12px var(--primary-glow);
+            transition: all 0.2s;
+        }
+
+        .btn-primary-action:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            transform: translateY(-1px);
+            color: white;
+        }
+
+        .btn-service-link {
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 0.45rem 0.85rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            transition: all 0.2s;
+        }
+
+        .btn-service-link:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: var(--border-highlight);
+            color: white;
+        }
+
+        /* Pulse Dot */
+        .live-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 rgba(16, 185, 129, 0.6);
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #243046;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-custom sticky-top py-3 mb-4">
+        <div class="container-fluid px-4">
+            
+            <div class="d-flex align-items-center gap-3">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fw-bold text-white fs-5 tracking-tight">Kargo Takip Sistemi</span>
+                        <span class="badge bg-dark border border-secondary text-secondary small px-2 py-1">Kafka & Grafana Edition</span>
+                    </div>
+                    <div class="small text-muted" style="font-size: 0.78rem;">
+                        <span class="live-indicator me-1"></span> Sistem Aktif • SQLite & Kafka Olay Akışı
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Quick Links -->
+            <div class="d-flex align-items-center gap-2 mt-2 mt-md-0 flex-wrap">
+                <a href="http://localhost:3000/dashboards" target="_blank" class="btn-service-link">
+                    <i class="fa-solid fa-chart-line text-warning"></i> Grafana Dashboard
+                </a>
+                <a href="http://localhost:9090" target="_blank" class="btn-service-link">
+                    <i class="fa-solid fa-fire text-danger"></i> Prometheus
+                </a>
+                <a href="/metrics" target="_blank" class="btn-service-link">
+                    <i class="fa-solid fa-code text-info"></i> /metrics
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Main Application Body -->
+    <div class="container-fluid px-4">
+
+        <!-- Top Stat Counter Cards -->
+        <div class="row g-3 mb-4">
+            
+            <div class="col-xl-3 col-sm-6">
+                <div class="custom-card stat-card stat-total">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-muted small fw-semibold text-uppercase tracking-wider">Toplam Kargo</span>
+                            <h2 class="fw-bold text-white mb-0 mt-1" id="stat-total">0</h2>
+                        </div>
+                        <div class="stat-icon-wrapper bg-primary bg-opacity-10 text-primary">
+                            <i class="fa-solid fa-box-archive"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6">
+                <div class="custom-card stat-card stat-delivered">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-muted small fw-semibold text-uppercase tracking-wider">Teslim Edilen</span>
+                            <h2 class="fw-bold text-success mb-0 mt-1" id="stat-delivered">0</h2>
+                        </div>
+                        <div class="stat-icon-wrapper bg-success bg-opacity-10 text-success">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6">
+                <div class="custom-card stat-card stat-transit">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-muted small fw-semibold text-uppercase tracking-wider">Yolda / Dağıtımda</span>
+                            <h2 class="fw-bold text-warning mb-0 mt-1" id="stat-intransit">0</h2>
+                        </div>
+                        <div class="stat-icon-wrapper bg-warning bg-opacity-10 text-warning">
+                            <i class="fa-solid fa-truck-ramp-box"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6">
+                <div class="custom-card stat-card stat-cancelled">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-muted small fw-semibold text-uppercase tracking-wider">İptal Edilen</span>
+                            <h2 class="fw-bold text-danger mb-0 mt-1" id="stat-cancelled">0</h2>
+                        </div>
+                        <div class="stat-icon-wrapper bg-danger bg-opacity-10 text-danger">
+                            <i class="fa-solid fa-ban"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Layout: Left (Controls & New Entry) / Right (Table & Actions) -->
+        <div class="row g-4">
+            
+            <!-- Left Controls Column -->
+            <div class="col-xl-4 col-lg-5">
+                
+                <!-- Create Cargo Form Card -->
+                <div class="custom-card p-4 mb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h6 class="fw-bold text-white mb-0">
+                            <i class="fa-solid fa-circle-plus text-primary me-2"></i>Yeni Kargo Kaydı
+                        </h6>
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle small">Kafka Producer</span>
+                    </div>
+
+                    <form id="createCargoForm">
+                        <div class="mb-3">
+                            <label class="form-label small text-muted fw-semibold">Takip Numarası</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="trackingNumber" placeholder="KRG-1001" required>
+                                <button type="button" class="btn btn-outline-secondary" onclick="generateTrackingNumber()" title="Rastgele Üret">
+                                    <i class="fa-solid fa-dice me-1"></i> Rastgele
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small text-muted fw-semibold">Gönderici</label>
+                            <input type="text" class="form-control" id="sender" placeholder="Örn: Ahmet Yılmaz" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small text-muted fw-semibold">Alıcı</label>
+                            <input type="text" class="form-control" id="receiver" placeholder="Örn: Mehmet Demir" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary-action w-100 mt-2">
+                            <i class="fa-solid fa-paper-plane me-2"></i>Kargoyu Kaydet ve Yayınla
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Simulation & Reset Card -->
+                <div class="custom-card p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h6 class="fw-bold text-white mb-0">
+                            <i class="fa-solid fa-bolt text-warning me-2"></i>Ödev Test Senaryosu
+                        </h6>
+                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle small">Otomatik Test</span>
+                    </div>
+
+                    <p class="text-muted small mb-3" style="line-height: 1.5;">
+                        PDF'de istenen <strong>20 kargo açma</strong>, <strong>10'unu yola çıkarma</strong>, <strong>5'ini teslim etme</strong> ve <strong>2'sini iptal etme</strong> akışını tek hamlede simüle eder.
+                    </p>
+
+                    <div class="d-flex gap-2">
+                        <button id="btnRunScenario" class="btn btn-warning flex-grow-1 fw-bold text-dark py-2" onclick="runSimulation()">
+                            <i class="fa-solid fa-play me-1"></i> 20 Kargoluk Senaryoyu Çalıştır
+                        </button>
+                        <button class="btn btn-outline-danger px-3" onclick="resetDatabase()" title="Veritabanını Sıfırla">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                    </div>
+
+                    <div id="scenarioProgress" class="small text-warning mt-3 d-none">
+                        <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                        <span>Senaryo işleniyor, veriler akıyor...</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Live Table -->
+            <div class="col-xl-8 col-lg-7">
+                <div class="custom-card p-4">
+                    
+                    <!-- Table Header & Controls -->
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+                        <div>
+                            <h6 class="fw-bold text-white mb-0">
+                                <i class="fa-solid fa-layer-group text-success me-2"></i>Canlı Kargo Operasyonları
+                            </h6>
+                            <span class="text-muted small">SQLite Veritabanı ve Güncel Durumlar</span>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2">
+                            <!-- Filter by status -->
+                            <select id="statusFilter" class="form-select form-select-sm" onchange="filterCargos()" style="width: 140px;">
+                                <option value="">Tüm Durumlar</option>
+                                <option value="CREATED">CREATED</option>
+                                <option value="SHIPPED">SHIPPED</option>
+                                <option value="IN_TRANSIT">IN_TRANSIT</option>
+                                <option value="OUT_FOR_DELIVERY">OUT_FOR_DELIVERY</option>
+                                <option value="DELIVERED">DELIVERED</option>
+                                <option value="CANCELLED">CANCELLED</option>
+                            </select>
+
+                            <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Takip no / kişi ara..." onkeyup="filterCargos()" style="width: 180px;">
+                            
+                            <button class="btn btn-outline-secondary btn-sm" onclick="fetchCargos()" title="Listeyi Yenile">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cargo Table -->
+                    <div class="table-responsive" style="max-height: 520px;">
+                        <table class="table table-custom align-middle">
+                            <thead class="sticky-top">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Takip No</th>
+                                    <th>Gönderici ➔ Alıcı</th>
+                                    <th>Mevcut Durum</th>
+                                    <th>Durum Güncelle</th>
+                                    <th class="text-end">İşlem</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cargoTableBody">
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-5">
+                                        <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                                        Kargolar yükleniyor...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top border-secondary border-opacity-25 small text-muted">
+                        <span id="rowCountLabel">Toplam 0 kargo listeleniyor</span>
+                        <span class="text-secondary"><i class="fa-solid fa-clock me-1"></i>Oto-Yenileme: 4 saniye</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast align-items-center border-0 text-bg-primary" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body fw-medium" id="toastMessage">
+                    İşlem tamamlandı.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Kapat"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let allCargos = [];
+
+        function showToast(message, type = 'success') {
+            const toastEl = document.getElementById('liveToast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastEl.className = `toast align-items-center border-0 text-bg-${type === 'error' ? 'danger' : (type === 'warning' ? 'warning text-dark' : 'success')}`;
+            toastMessage.innerText = message;
+            const toast = new bootstrap.Toast(toastEl, { delay: 3500 });
+            toast.show();
+        }
+
+        function generateTrackingNumber() {
+            const rand = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('trackingNumber').value = `KRG-${rand}`;
+        }
+
+        async function fetchCargos() {
+            try {
+                const res = await fetch('/cargo');
+                if (!res.ok) throw new Error('Kargolar alınamadı');
+                allCargos = await res.json();
+                filterCargos();
+                updateStats(allCargos);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function updateStats(cargos) {
+            const total = cargos.length;
+            const delivered = cargos.filter(c => c.status === 'DELIVERED').length;
+            const cancelled = cargos.filter(c => c.status === 'CANCELLED').length;
+            const intransit = cargos.filter(c => ['SHIPPED', 'IN_TRANSIT', 'OUT_FOR_DELIVERY'].includes(c.status)).length;
+
+            document.getElementById('stat-total').innerText = total;
+            document.getElementById('stat-delivered').innerText = delivered;
+            document.getElementById('stat-cancelled').innerText = cancelled;
+            document.getElementById('stat-intransit').innerText = intransit;
+        }
+
+        function renderTable(cargos) {
+            const tbody = document.getElementById('cargoTableBody');
+            document.getElementById('rowCountLabel').innerText = `Toplam ${cargos.length} kargo gösteriliyor`;
+
+            if (cargos.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-5">
+                            <i class="fa-solid fa-box-open fs-3 d-block mb-2 text-secondary"></i>
+                            Kayıtlı kargo bulunamadı.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const statuses = ['CREATED', 'SHIPPED', 'IN_TRANSIT', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELLED'];
+
+            tbody.innerHTML = cargos.map(c => {
+                const isTerminal = ['DELIVERED', 'CANCELLED'].includes(c.status);
+                
+                const statusOptions = statuses.map(s => `
+                    <option value="${s}" ${s === c.status ? 'selected' : ''}>${s}</option>
+                `).join('');
+
+                return `
+                    <tr>
+                        <td class="text-muted fw-bold">#${c.id}</td>
+                        <td>
+                            <span class="fw-bold text-white">${c.tracking_number}</span>
+                            <div class="text-muted" style="font-size: 0.72rem;">${c.created_at || ''}</div>
+                        </td>
+                        <td>
+                            <div class="text-white small fw-medium">${c.sender}</div>
+                            <div class="text-muted small"><i class="fa-solid fa-arrow-right-long text-secondary me-1" style="font-size: 0.7rem;"></i>${c.receiver}</div>
+                        </td>
+                        <td>
+                            <span class="badge-pill-status badge-${c.status}">
+                                <span class="status-dot"></span>
+                                ${c.status}
+                            </span>
+                        </td>
+                        <td style="min-width: 160px;">
+                            ${isTerminal ? `
+                                <span class="text-muted small"><i class="fa-solid fa-lock me-1"></i>Son Durum (${c.status})</span>
+                            ` : `
+                                <select class="form-select form-select-sm" onchange="changeStatus(${c.id}, this.value)">
+                                    ${statusOptions}
+                                </select>
+                            `}
+                        </td>
+                        <td class="text-end">
+                            <button class="btn btn-outline-danger btn-sm" onclick="deleteCargo(${c.id})" title="Kargoyu Sil">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function filterCargos() {
+            const q = document.getElementById('searchInput').value.toLowerCase().trim();
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            const filtered = allCargos.filter(c => {
+                const matchesSearch = !q || (
+                    c.tracking_number.toLowerCase().includes(q) ||
+                    c.sender.toLowerCase().includes(q) ||
+                    c.receiver.toLowerCase().includes(q)
+                );
+                const matchesStatus = !statusFilter || c.status === statusFilter;
+                return matchesSearch && matchesStatus;
+            });
+
+            renderTable(filtered);
+        }
+
+        async function changeStatus(id, newStatus) {
+            try {
+                const res = await fetch(`/cargo/${id}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    showToast(data.error || 'Durum değiştirilemedi', 'error');
+                    fetchCargos();
+                    return;
+                }
+                showToast(`Kargo #${id} durumu "${newStatus}" olarak güncellendi.`);
+                fetchCargos();
+            } catch (err) {
+                showToast('Hata: ' + err.message, 'error');
+                fetchCargos();
+            }
+        }
+
+        async function deleteCargo(id) {
+            if (!confirm(`Kargo #${id} silinsin mi?`)) return;
+            try {
+                const res = await fetch(`/cargo/${id}`, { method: 'DELETE' });
+                const data = await res.json();
+                if (!res.ok) {
+                    showToast(data.error || 'Silinemedi', 'error');
+                    return;
+                }
+                showToast(`Kargo #${id} silindi.`);
+                fetchCargos();
+            } catch (err) {
+                showToast('Hata: ' + err.message, 'error');
+            }
+        }
+
+        async function resetDatabase() {
+            if (!confirm('Tüm kargo veritabanı sıfırlansın mı?')) return;
+            try {
+                const res = await fetch('/reset', { method: 'POST' });
+                if (res.ok) {
+                    showToast('Veritabanı başarıyla temizlendi.');
+                    fetchCargos();
+                } else {
+                    showToast('Sıfırlama yapılamadı.', 'error');
+                }
+            } catch (err) {
+                showToast('Hata: ' + err.message, 'error');
+            }
+        }
+
+        document.getElementById('createCargoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const tracking_number = document.getElementById('trackingNumber').value.trim();
+            const sender = document.getElementById('sender').value.trim();
+            const receiver = document.getElementById('receiver').value.trim();
+
+            try {
+                const res = await fetch('/cargo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tracking_number, sender, receiver })
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    showToast(data.error || 'Kargo oluşturulamadı', 'error');
+                    return;
+                }
+                showToast(`"${tracking_number}" kargosu oluşturuldu ve Kafka'ya iletildi.`);
+                document.getElementById('createCargoForm').reset();
+                generateTrackingNumber();
+                fetchCargos();
+            } catch (err) {
+                showToast('Hata: ' + err.message, 'error');
+            }
+        });
+
+        async function runSimulation() {
+            const btn = document.getElementById('btnRunScenario');
+            const progress = document.getElementById('scenarioProgress');
+            btn.disabled = true;
+            progress.classList.remove('d-none');
+
+            try {
+                // 1. Reset first
+                await fetch('/reset', { method: 'POST' });
+
+                // 2. Create 20 cargos
+                for (let i = 1; i <= 20; i++) {
+                    await fetch('/cargo', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            tracking_number: `KRG-${1000 + i}`,
+                            sender: `Müşteri-${i}`,
+                            receiver: `Alıcı-${i}`
+                        })
+                    });
+                }
+
+                // 3. Get created list
+                const res = await fetch('/cargo');
+                const list = await res.json();
+
+                // 4. 10 to IN_TRANSIT
+                for (let i = 0; i < Math.min(10, list.length); i++) {
+                    await fetch(`/cargo/${list[i].id}/status`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ status: 'IN_TRANSIT' })
+                    });
+                }
+
+                // 5. 5 to DELIVERED
+                for (let i = 0; i < Math.min(5, list.length); i++) {
+                    await fetch(`/cargo/${list[i].id}/status`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ status: 'DELIVERED' })
+                    });
+                }
+
+                // 6. 2 to CANCELLED
+                if (list.length >= 20) {
+                    for (let i = 18; i < 20; i++) {
+                        await fetch(`/cargo/${list[i].id}/status`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ status: 'CANCELLED' })
+                        });
+                    }
+                }
+
+                showToast('20 kargoluk senaryo başarıyla icra edildi! Grafana ve tablolar güncellendi.', 'success');
+                fetchCargos();
+            } catch (err) {
+                showToast('Hata: ' + err.message, 'error');
+            } finally {
+                btn.disabled = false;
+                progress.classList.add('d-none');
+            }
+        }
+
+        // Init
+        generateTrackingNumber();
+        fetchCargos();
+        setInterval(fetchCargos, 4000);
+    </script>
+</body>
+</html>

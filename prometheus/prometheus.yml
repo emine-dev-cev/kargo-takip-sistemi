@@ -1,0 +1,12 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  - job_name: 'cargo-flask-api'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['flask:5000']
+        labels:
+          application: 'cargo-tracking-system'
+          environment: 'production'
