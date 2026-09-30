@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google" content="notranslate">
-    <title>Emine Logistics | Canlı Kargo ve Operasyon Merkezi</title>
+    <title>Emine Logistics | Hepsi Bir Arada Operasyon & Canlı İzleme Merkezi</title>
     
     <!-- Script to immediately set theme before render to avoid flash -->
     <script>
@@ -26,7 +26,7 @@
             --bg-radial-1: rgba(99, 102, 241, 0.22);
             --bg-radial-2: rgba(236, 72, 153, 0.18);
             --bg-radial-3: rgba(6, 182, 212, 0.15);
-            --bg-card: rgba(15, 23, 42, 0.78);
+            --bg-card: rgba(15, 23, 42, 0.85);
             --bg-card-alt: #131d38;
             --border-card: #1e2d4d;
             --border-glow: #6366f1;
@@ -35,7 +35,7 @@
             --text-title: #ffffff;
             --text-muted: #94a3b8;
             
-            --navbar-bg: rgba(15, 23, 42, 0.88);
+            --navbar-bg: rgba(15, 23, 42, 0.92);
             --navbar-border: rgba(99, 102, 241, 0.25);
             --navbar-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             
@@ -72,6 +72,16 @@
             --theme-btn-border: rgba(99, 102, 241, 0.35);
             --theme-btn-text: #e2e8f0;
             
+            --tab-bg: rgba(15, 23, 42, 0.7);
+            --tab-active-bg: linear-gradient(135deg, #6366f1, #a855f7);
+            --tab-active-text: #ffffff;
+            --tab-inactive-text: #94a3b8;
+            --tab-border: #1e2d4d;
+            
+            --terminal-bg: #030712;
+            --terminal-border: #1f2937;
+            --terminal-text: #38bdf8;
+            
             --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
             --gradient-cyan: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
             --gradient-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -93,7 +103,7 @@
             --text-title: #3b0764;
             --text-muted: #6b5b95;
             
-            --navbar-bg: rgba(250, 245, 255, 0.92);
+            --navbar-bg: rgba(250, 245, 255, 0.94);
             --navbar-border: rgba(168, 85, 247, 0.32);
             --navbar-shadow: 0 4px 25px rgba(147, 51, 234, 0.1);
             
@@ -129,6 +139,16 @@
             --theme-btn-bg: rgba(168, 85, 247, 0.16);
             --theme-btn-border: rgba(168, 85, 247, 0.35);
             --theme-btn-text: #581c87;
+            
+            --tab-bg: rgba(243, 232, 255, 0.7);
+            --tab-active-bg: linear-gradient(135deg, #7c3aed, #a855f7);
+            --tab-active-text: #ffffff;
+            --tab-inactive-text: #6b21a8;
+            --tab-border: #e9d5ff;
+            
+            --terminal-bg: #2e1065;
+            --terminal-border: #a855f7;
+            --terminal-text: #38bdf8;
             
             --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%);
             --gradient-cyan: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
@@ -214,6 +234,44 @@
             border-color: #a855f7;
             box-shadow: 0 6px 16px rgba(168, 85, 247, 0.25);
             color: var(--theme-btn-text);
+        }
+
+        /* Unified Navigation Tabs */
+        .portal-nav-pills {
+            background: var(--tab-bg);
+            border: 1px solid var(--tab-border);
+            padding: 0.4rem;
+            border-radius: 16px;
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .portal-nav-btn {
+            border: none;
+            background: transparent;
+            color: var(--tab-inactive-text);
+            font-weight: 700;
+            font-size: 0.88rem;
+            padding: 0.55rem 1.15rem;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .portal-nav-btn:hover {
+            color: var(--text-title);
+            background: rgba(168, 85, 247, 0.12);
+        }
+
+        .portal-nav-btn.active {
+            background: var(--tab-active-bg) !important;
+            color: var(--tab-active-text) !important;
+            box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
         }
 
         /* Custom Glass Cards */
@@ -407,7 +465,7 @@
         }
 
         .btn-nav-action:hover {
-            background: rgba(99, 102, 241, 0.15);
+            background: rgba(168, 85, 247, 0.15);
             border-color: #38bdf8;
             color: var(--btn-nav-text);
             box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
@@ -463,6 +521,44 @@
             font-weight: 600;
         }
 
+        /* Embedded Iframe Container */
+        .embedded-frame-container {
+            width: 100%;
+            height: 720px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border-card);
+            background: var(--bg-card);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .embedded-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Kafka Terminal Stream */
+        .kafka-terminal {
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--terminal-border);
+            border-radius: 16px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            padding: 1.2rem;
+            max-height: 540px;
+            overflow-y: auto;
+            color: #38bdf8;
+            font-size: 0.88rem;
+        }
+
+        .kafka-log-line {
+            padding: 0.35rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
         /* Live Indicator */
         .pulse-live {
             width: 9px;
@@ -495,11 +591,11 @@
                     <div class="d-flex align-items-center gap-2">
                         <span class="fw-bold brand-title fs-5 tracking-tight">Emine Logistics</span>
                         <span class="badge rounded-pill px-3 py-1" style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.25)); color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.4);">
-                            <i class="fa-solid fa-crown text-warning me-1"></i>Premium Operasyon
+                            <i class="fa-solid fa-layer-group text-warning me-1"></i>Hepsi Bir Arada Panel
                         </span>
                     </div>
                     <div class="small text-muted" style="font-size: 0.8rem;">
-                        <span class="pulse-live me-1"></span> Canlı Sistem Aktif • Apache Kafka & Prometheus Bağlantılı
+                        <span class="pulse-live me-1"></span> Canlı Sistem Aktif • Apache Kafka & Prometheus & Grafana Entegre
                     </div>
                 </div>
             </div>
@@ -522,16 +618,13 @@
                     <span class="badge rounded-pill px-2 py-0" style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 0.72rem; border: 1px solid rgba(16, 185, 129, 0.4);">Yönetici</span>
                 </div>
 
-                <!-- Fast Nav Links -->
+                <!-- External Quick Links -->
                 <div class="d-flex gap-2">
-                    <a href="http://localhost:3000/dashboards" target="_blank" class="btn-nav-action">
-                        <i class="fa-solid fa-chart-line text-warning"></i> Grafana
+                    <a href="http://localhost:3000/dashboards" target="_blank" class="btn-nav-action" title="Yeni sekmede Grafana">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-warning"></i> Grafana
                     </a>
-                    <a href="http://localhost:9090" target="_blank" class="btn-nav-action">
+                    <a href="http://localhost:9090" target="_blank" class="btn-nav-action" title="Yeni sekmede Prometheus">
                         <i class="fa-solid fa-fire text-danger"></i> Prometheus
-                    </a>
-                    <a href="/metrics" target="_blank" class="btn-nav-action">
-                        <i class="fa-solid fa-terminal text-info"></i> /metrics
                     </a>
                 </div>
             </div>
@@ -550,7 +643,7 @@
                         <i class="fa-solid fa-boxes-packing text-warning me-2"></i>Kargo ve Sevkiyat Kontrol Merkezi
                     </h4>
                     <p class="hero-desc small mb-0">
-                        Gerçek zamanlı kargo operasyonlarını yönetin, durum değişikliklerini tetikleyin ve Kafka/Prometheus olay akışını canlı izleyin.
+                        Gerçek zamanlı kargo operasyonlarını yönetin, durum değişikliklerini tetikleyin ve Kafka/Prometheus olay akışını tek ekrandan canlı izleyin.
                     </p>
                 </div>
                 <div class="d-flex gap-2">
@@ -625,139 +718,286 @@
 
         </div>
 
-        <!-- Main Workspace Grid -->
-        <div class="row g-4">
-            
-            <!-- Left Side: Form & Simulation Runner -->
-            <div class="col-xl-4 col-lg-5">
+        <!-- ==================== UNIFIED NAVIGATION BAR ==================== -->
+        <div class="d-flex justify-content-center mb-4">
+            <div class="portal-nav-pills">
+                <button class="portal-nav-btn active" onclick="switchView('cargo')" id="tabBtn-cargo">
+                    <i class="fa-solid fa-box text-info"></i> Kargo Yönetimi & Tablo
+                </button>
+                <button class="portal-nav-btn" onclick="switchView('grafana')" id="tabBtn-grafana">
+                    <i class="fa-solid fa-chart-line text-warning"></i> Grafana Canlı Panel
+                </button>
+                <button class="portal-nav-btn" onclick="switchView('split')" id="tabBtn-split">
+                    <i class="fa-solid fa-columns text-primary"></i> Bölünmüş Ekran (Kargo + Grafana)
+                </button>
+                <button class="portal-nav-btn" onclick="switchView('events')" id="tabBtn-events">
+                    <i class="fa-solid fa-bolt text-danger"></i> Kafka Canlı Olay Günlüğü
+                </button>
+                <button class="portal-nav-btn" onclick="switchView('prometheus')" id="tabBtn-prometheus">
+                    <i class="fa-solid fa-fire text-danger"></i> Prometheus Metrikleri
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== VIEW 1: CARGO MANAGEMENT ==================== -->
+        <div id="view-cargo" class="portal-view">
+            <div class="row g-4">
                 
-                <!-- Create Cargo Form -->
-                <div class="glass-card p-4 mb-4">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h6 class="fw-bold card-heading mb-0">
-                            <i class="fa-solid fa-paper-plane text-info me-2"></i>Yeni Kargo Kaydet
-                        </h6>
-                        <span class="badge rounded-pill px-2 py-1" style="background: rgba(56, 189, 248, 0.15); color: #0284c7; border: 1px solid rgba(56, 189, 248, 0.35);">Kafka Olayı</span>
+                <!-- Left Side: Form & Scenario Runner -->
+                <div class="col-xl-4 col-lg-5">
+                    
+                    <!-- Create Cargo Form -->
+                    <div class="glass-card p-4 mb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold card-heading mb-0">
+                                <i class="fa-solid fa-paper-plane text-info me-2"></i>Yeni Kargo Kaydet
+                            </h6>
+                            <span class="badge rounded-pill px-2 py-1" style="background: rgba(56, 189, 248, 0.15); color: #0284c7; border: 1px solid rgba(56, 189, 248, 0.35);">Kafka Olayı</span>
+                        </div>
+
+                        <form id="createCargoForm">
+                            <div class="mb-3">
+                                <label class="form-label small text-muted fw-semibold">Takip Numarası</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control font-monospace" id="trackingNumber" placeholder="EMN-1001" required>
+                                    <button type="button" class="btn btn-outline-info" onclick="generateTrackingNumber()" title="Rastgele Üret">
+                                        <i class="fa-solid fa-shuffle me-1"></i> Üret
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small text-muted fw-semibold">Gönderici Adı</label>
+                                <input type="text" class="form-control" id="sender" placeholder="Örn: Emine Yılmaz" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small text-muted fw-semibold">Alıcı Adı</label>
+                                <input type="text" class="form-control" id="receiver" placeholder="Örn: Mehmet Demir" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-gradient-primary w-100 mt-2">
+                                <i class="fa-solid fa-plus-circle me-1"></i> Kargoyu Kaydet ve Yayınla
+                            </button>
+                        </form>
                     </div>
 
-                    <form id="createCargoForm">
-                        <div class="mb-3">
-                            <label class="form-label small text-muted fw-semibold">Takip Numarası</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control font-monospace" id="trackingNumber" placeholder="EMN-1001" required>
-                                <button type="button" class="btn btn-outline-info" onclick="generateTrackingNumber()" title="Rastgele Üret">
-                                    <i class="fa-solid fa-shuffle me-1"></i> Üret
+                    <!-- 20-Cargo Automated Scenario Runner -->
+                    <div class="glass-card p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h6 class="fw-bold card-heading mb-0">
+                                <i class="fa-solid fa-bolt text-warning me-2"></i>20 Kargoluk Ödev Senaryosu
+                            </h6>
+                            <span class="badge rounded-pill px-2 py-1" style="background: rgba(245, 158, 11, 0.15); color: #d97706; border: 1px solid rgba(245, 158, 11, 0.35);">Otomatik</span>
+                        </div>
+
+                        <p class="text-muted small mb-3" style="line-height: 1.5;">
+                            20 kargo oluşturur, 10'unu yola çıkarır, 5'ini teslim eder ve 2'sini iptal ederek tüm sistemi test eder.
+                        </p>
+
+                        <button id="btnRunScenario" class="btn btn-gradient-warning w-100 py-2 rounded-3" onclick="runSimulation()">
+                            <i class="fa-solid fa-play me-1"></i> Senaryoyu Başlat
+                        </button>
+
+                        <div id="scenarioProgress" class="small text-warning mt-3 d-none">
+                            <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                            <span>Kargolar işleniyor, veriler akıyor...</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Side: Cargo Table & Operations -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="glass-card p-4">
+                        
+                        <!-- Search and Filters -->
+                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+                            <div>
+                                <h6 class="fw-bold card-heading mb-0">
+                                    <i class="fa-solid fa-list-check text-success me-2"></i>Canlı Kargo Operasyonları
+                                </h6>
+                                <span class="text-muted small">Gerçek SQLite Veritabanı ve Güncel Durumlar</span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2 flex-wrap">
+                                <select id="statusFilter" class="form-select form-select-sm" onchange="filterCargos()" style="width: 165px;">
+                                    <option value="">Tüm Durumlar</option>
+                                    <option value="CREATED">Kayıt Açıldı (CREATED)</option>
+                                    <option value="SHIPPED">Kargoya Verildi (SHIPPED)</option>
+                                    <option value="IN_TRANSIT">Yolda (IN_TRANSIT)</option>
+                                    <option value="OUT_FOR_DELIVERY">Dağıtımda (OUT_FOR_DELIVERY)</option>
+                                    <option value="DELIVERED">Teslim Edildi (DELIVERED)</option>
+                                    <option value="CANCELLED">İptal Edildi (CANCELLED)</option>
+                                </select>
+
+                                <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Takip no / kişi ara..." onkeyup="filterCargos()" style="width: 170px;">
+                                
+                                <button class="btn btn-outline-secondary btn-sm" onclick="fetchCargos()" title="Listeyi Yenile">
+                                    <i class="fa-solid fa-arrows-rotate"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label small text-muted fw-semibold">Gönderici Adı</label>
-                            <input type="text" class="form-control" id="sender" placeholder="Örn: Emine Yılmaz" required>
+                        <!-- Table -->
+                        <div class="table-responsive" style="max-height: 520px;">
+                            <table class="table table-custom align-middle">
+                                <thead class="sticky-top">
+                                    <tr>
+                                        <th># ID</th>
+                                        <th>Takip No</th>
+                                        <th>Gönderici ➔ Alıcı</th>
+                                        <th>Kargo Durumu</th>
+                                        <th>Durum Değiştir</th>
+                                        <th class="text-end">İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cargoTableBody">
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-5">
+                                            <div class="spinner-border spinner-border-sm text-info me-2" role="status"></div>
+                                            Kargolar yükleniyor...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label small text-muted fw-semibold">Alıcı Adı</label>
-                            <input type="text" class="form-control" id="receiver" placeholder="Örn: Mehmet Demir" required>
+                        <!-- Footer Info -->
+                        <div class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top border-secondary border-opacity-25 small text-muted">
+                            <span id="rowCountLabel">Toplam 0 kargo</span>
+                            <span><i class="fa-solid fa-rotate text-info me-1"></i>Canlı Senkronizasyon (4s)</span>
                         </div>
 
-                        <button type="submit" class="btn btn-gradient-primary w-100 mt-2">
-                            <i class="fa-solid fa-plus-circle me-1"></i> Kargoyu Kaydet ve Yayınla
-                        </button>
-                    </form>
-                </div>
-
-                <!-- 20-Cargo Automated Scenario Runner -->
-                <div class="glass-card p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <h6 class="fw-bold card-heading mb-0">
-                            <i class="fa-solid fa-bolt text-warning me-2"></i>20 Kargoluk Ödev Senaryosu
-                        </h6>
-                        <span class="badge rounded-pill px-2 py-1" style="background: rgba(245, 158, 11, 0.15); color: #d97706; border: 1px solid rgba(245, 158, 11, 0.35);">Otomatik</span>
-                    </div>
-
-                    <p class="text-muted small mb-3" style="line-height: 1.5;">
-                        PDF'deki 20 kargo açma, 10'unu yola çıkarma, 5'ini teslim etme ve 2'sini iptal etme akışını otomatik icra eder.
-                    </p>
-
-                    <button id="btnRunScenario" class="btn btn-gradient-warning w-100 py-2 rounded-3" onclick="runSimulation()">
-                        <i class="fa-solid fa-play me-1"></i> Senaryoyu Başlat
-                    </button>
-
-                    <div id="scenarioProgress" class="small text-warning mt-3 d-none">
-                        <div class="spinner-border spinner-border-sm me-2" role="status"></div>
-                        <span>Kargolar işleniyor, veriler akıyor...</span>
                     </div>
                 </div>
 
             </div>
+        </div>
 
-            <!-- Right Side: Cargo Table & Operations -->
-            <div class="col-xl-8 col-lg-7">
-                <div class="glass-card p-4">
-                    
-                    <!-- Search and Filters -->
-                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
-                        <div>
+        <!-- ==================== VIEW 2: FULL GRAFANA EMBED ==================== -->
+        <div id="view-grafana" class="portal-view d-none">
+            <div class="glass-card p-4">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+                    <div>
+                        <h5 class="fw-bold card-heading mb-0">
+                            <i class="fa-solid fa-chart-pie text-warning me-2"></i>Grafana Canlı İzleme & Metrik Paneli
+                        </h5>
+                        <span class="text-muted small">Prometheus üzerinden toplanan anlık kargo grafikleri ve sistem performans metrikleri</span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-secondary" onclick="reloadGrafanaFrame()">
+                            <i class="fa-solid fa-arrows-rotate me-1"></i> Paneli Yenile
+                        </button>
+                        <a href="http://localhost:3000/d/cargo-tracking-dashboard" target="_blank" class="btn btn-sm btn-nav-action">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Tam Sayfa Aç
+                        </a>
+                    </div>
+                </div>
+
+                <div class="embedded-frame-container">
+                    <iframe id="grafanaIframe" class="embedded-frame" src="http://localhost:3000/d/cargo-tracking-dashboard?kiosk=tv"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== VIEW 3: SPLIT VIEW (CARGO + GRAFANA) ==================== -->
+        <div id="view-split" class="portal-view d-none">
+            <div class="row g-4">
+                <!-- Left half: Active Cargo Operations -->
+                <div class="col-xl-6">
+                    <div class="glass-card p-4 mb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6 class="fw-bold card-heading mb-0">
-                                <i class="fa-solid fa-list-check text-success me-2"></i>Canlı Kargo Operasyonları
+                                <i class="fa-solid fa-list-check text-success me-2"></i>Canlı Kargo Listesi
                             </h6>
-                            <span class="text-muted small">Gerçek SQLite Veritabanı ve Güncel Durumlar</span>
-                        </div>
-
-                        <div class="d-flex align-items-center gap-2 flex-wrap">
-                            <!-- Status Filter Dropdown -->
-                            <select id="statusFilter" class="form-select form-select-sm" onchange="filterCargos()" style="width: 165px;">
-                                <option value="">Tüm Durumlar</option>
-                                <option value="CREATED">Kayıt Açıldı (CREATED)</option>
-                                <option value="SHIPPED">Kargoya Verildi (SHIPPED)</option>
-                                <option value="IN_TRANSIT">Yolda (IN_TRANSIT)</option>
-                                <option value="OUT_FOR_DELIVERY">Dağıtımda (OUT_FOR_DELIVERY)</option>
-                                <option value="DELIVERED">Teslim Edildi (DELIVERED)</option>
-                                <option value="CANCELLED">İptal Edildi (CANCELLED)</option>
-                            </select>
-
-                            <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Takip no / kişi ara..." onkeyup="filterCargos()" style="width: 170px;">
-                            
-                            <button class="btn btn-outline-secondary btn-sm" onclick="fetchCargos()" title="Listeyi Yenile">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="fetchCargos()">
                                 <i class="fa-solid fa-arrows-rotate"></i>
                             </button>
                         </div>
+                        <div class="table-responsive" style="max-height: 640px;">
+                            <table class="table table-custom align-middle">
+                                <thead class="sticky-top">
+                                    <tr>
+                                        <th># ID</th>
+                                        <th>Takip No</th>
+                                        <th>Gönderici ➔ Alıcı</th>
+                                        <th>Durum</th>
+                                        <th>İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="splitCargoTableBody">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                </div>
 
-                    <!-- Table -->
-                    <div class="table-responsive" style="max-height: 520px;">
-                        <table class="table table-custom align-middle">
-                            <thead class="sticky-top">
-                                <tr>
-                                    <th># ID</th>
-                                    <th>Takip No</th>
-                                    <th>Gönderici ➔ Alıcı</th>
-                                    <th>Kargo Durumu</th>
-                                    <th>Durum Değiştir</th>
-                                    <th class="text-end">İşlem</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cargoTableBody">
-                                <tr>
-                                    <td colspan="6" class="text-center text-muted py-5">
-                                        <div class="spinner-border spinner-border-sm text-info me-2" role="status"></div>
-                                        Kargolar yükleniyor...
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Right half: Live Embedded Grafana Charts -->
+                <div class="col-xl-6">
+                    <div class="glass-card p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold card-heading mb-0">
+                                <i class="fa-solid fa-chart-line text-warning me-2"></i>Canlı Grafana Grafikleri
+                            </h6>
+                            <span class="badge rounded-pill px-2 py-1" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">Canlı Senkron</span>
+                        </div>
+                        <div class="embedded-frame-container" style="height: 640px;">
+                            <iframe id="splitGrafanaIframe" class="embedded-frame" src="http://localhost:3000/d/cargo-tracking-dashboard?kiosk=tv"></iframe>
+                        </div>
                     </div>
-
-                    <!-- Footer Info -->
-                    <div class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top border-secondary border-opacity-25 small text-muted">
-                        <span id="rowCountLabel">Toplam 0 kargo</span>
-                        <span><i class="fa-solid fa-rotate text-info me-1"></i>Canlı Senkronizasyon (4s)</span>
-                    </div>
-
                 </div>
             </div>
+        </div>
 
+        <!-- ==================== VIEW 4: KAFKA LIVE EVENT STREAM ==================== -->
+        <div id="view-events" class="portal-view d-none">
+            <div class="glass-card p-4">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+                    <div>
+                        <h5 class="fw-bold card-heading mb-0">
+                            <i class="fa-solid fa-bolt text-danger me-2"></i>Apache Kafka Canlı Olay (Event Stream) Akışı
+                        </h5>
+                        <span class="text-muted small">`cargo-events` topic'ine fırlatılan anlık producer mesajları ve olay kuyruğu</span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-danger" onclick="clearEventLogs()">
+                            <i class="fa-solid fa-trash-can me-1"></i> Logları Temizle
+                        </button>
+                    </div>
+                </div>
+
+                <div class="kafka-terminal" id="kafkaTerminal">
+                    <div class="text-secondary mb-2">// Apache Kafka Event Stream Console bağlandı. Topic: cargo-events</div>
+                    <div id="kafkaLogContainer">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== VIEW 5: PROMETHEUS METRICS ==================== -->
+        <div id="view-prometheus" class="portal-view d-none">
+            <div class="glass-card p-4">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+                    <div>
+                        <h5 class="fw-bold card-heading mb-0">
+                            <i class="fa-solid fa-fire text-danger me-2"></i>Prometheus Metrik ve Sorgu Konsolu
+                        </h5>
+                        <span class="text-muted small">Prometheus Time Series veritabanı doğrudan arayüzü (:9090)</span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a href="http://localhost:9090/graph" target="_blank" class="btn btn-sm btn-nav-action">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Yeni Sekmede Aç
+                        </a>
+                    </div>
+                </div>
+
+                <div class="embedded-frame-container">
+                    <iframe class="embedded-frame" src="http://localhost:9090/graph"></iframe>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -779,6 +1019,7 @@
 
     <script>
         let allCargos = [];
+        let eventLogs = [];
 
         // ==================== THEME CONTROLLER ====================
         function initTheme() {
@@ -796,6 +1037,7 @@
                 if (icon) icon.className = 'fa-solid fa-moon text-info';
                 if (text) text.textContent = 'Gece';
             }
+            updateGrafanaTheme(theme);
         }
 
         function toggleTheme() {
@@ -804,7 +1046,77 @@
             document.documentElement.setAttribute('data-theme', nextTheme);
             localStorage.setItem('app-theme', nextTheme);
             updateThemeUI(nextTheme);
-            showToast(nextTheme === 'light' ? '☀️ Gündüz modu aktif edildi.' : '🌙 Gece modu aktif edildi.');
+            showToast(nextTheme === 'light' ? '☀️ Gündüz (Lila) modu aktif edildi.' : '🌙 Gece modu aktif edildi.');
+        }
+
+        function updateGrafanaTheme(theme) {
+            const gFrame = document.getElementById('grafanaIframe');
+            const sFrame = document.getElementById('splitGrafanaIframe');
+            const grafanaTheme = theme === 'light' ? 'light' : 'dark';
+            const baseUrl = `http://localhost:3000/d/cargo-tracking-dashboard?kiosk=tv&theme=${grafanaTheme}`;
+            if (gFrame) gFrame.src = baseUrl;
+            if (sFrame) sFrame.src = baseUrl;
+        }
+
+        function reloadGrafanaFrame() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            updateGrafanaTheme(currentTheme);
+            showToast('Grafana paneli yenilendi.');
+        }
+
+        // ==================== TAB VIEW SWITCHER ====================
+        function switchView(viewName) {
+            const views = ['cargo', 'grafana', 'split', 'events', 'prometheus'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                const btn = document.getElementById(`tabBtn-${v}`);
+                if (el) el.classList.toggle('d-none', v !== viewName);
+                if (btn) btn.classList.toggle('active', v === viewName);
+            });
+
+            if (viewName === 'split') {
+                renderSplitTable(allCargos);
+            }
+        }
+
+        // ==================== KAFKA EVENT STREAM LOGS ====================
+        function addKafkaEvent(eventType, trackingNumber, status, extra = {}) {
+            const timeStr = new Date().toLocaleTimeString();
+            const logEntry = {
+                time: timeStr,
+                type: eventType,
+                tracking: trackingNumber,
+                status: status,
+                extra: extra
+            };
+            eventLogs.unshift(logEntry);
+            if (eventLogs.length > 50) eventLogs.pop();
+            renderKafkaLogs();
+        }
+
+        function renderKafkaLogs() {
+            const container = document.getElementById('kafkaLogContainer');
+            if (!container) return;
+            if (eventLogs.length === 0) {
+                container.innerHTML = `<div class="text-secondary py-3 text-center">Henüz olay tetiklenmedi. Yeni bir kargo oluşturulduğunda veya durum güncellendiğinde burada Kafka mesajları belirecektir.</div>`;
+                return;
+            }
+
+            container.innerHTML = eventLogs.map(log => `
+                <div class="kafka-log-line">
+                    <span class="text-secondary">[${log.time}]</span>
+                    <span class="badge px-2" style="background: rgba(168, 85, 247, 0.25); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4);">TOPIC: cargo-events</span>
+                    <span class="text-warning fw-bold">${log.type}</span>
+                    <span class="text-info font-monospace">${log.tracking}</span>
+                    <span class="text-white">➔ Durum: <span class="badge status-${log.status} py-0 px-2">${log.status}</span></span>
+                </div>
+            `).join('');
+        }
+
+        function clearEventLogs() {
+            eventLogs = [];
+            renderKafkaLogs();
+            showToast('Olay günlüğü temizlendi.');
         }
 
         // Descriptive Turkish labels for statuses
@@ -850,6 +1162,7 @@
                 allCargos = await res.json();
                 filterCargos();
                 updateStats(allCargos);
+                renderSplitTable(allCargos);
             } catch (err) {
                 console.error(err);
             }
@@ -928,6 +1241,42 @@
             }).join('');
         }
 
+        function renderSplitTable(cargos) {
+            const tbody = document.getElementById('splitCargoTableBody');
+            if (!tbody) return;
+            if (cargos.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">Kargo kaydı yok</td></tr>`;
+                return;
+            }
+            const statuses = ['CREATED', 'SHIPPED', 'IN_TRANSIT', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELLED'];
+
+            tbody.innerHTML = cargos.slice(0, 15).map(c => {
+                const isTerminal = ['DELIVERED', 'CANCELLED'].includes(c.status);
+                const statusOptions = statuses.map(s => `
+                    <option value="${s}" ${s === c.status ? 'selected' : ''}>${s}</option>
+                `).join('');
+                return `
+                    <tr>
+                        <td class="text-muted small">#${c.id}</td>
+                        <td class="fw-bold font-monospace small">${c.tracking_number}</td>
+                        <td class="small">${c.sender} ➔ ${c.receiver}</td>
+                        <td>
+                            <span class="status-badge status-${c.status} py-0 px-2" style="font-size: 0.7rem;">
+                                ${c.status}
+                            </span>
+                        </td>
+                        <td>
+                            ${isTerminal ? `<span class="text-muted small"><i class="fa-solid fa-lock"></i></span>` : `
+                                <select class="form-select form-select-sm py-0" style="font-size: 0.75rem;" onchange="changeStatus(${c.id}, this.value)">
+                                    ${statusOptions}
+                                </select>
+                            `}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
         function filterCargos() {
             const q = document.getElementById('searchInput').value.toLowerCase().trim();
             const statusFilter = document.getElementById('statusFilter').value;
@@ -958,6 +1307,7 @@
                     fetchCargos();
                     return;
                 }
+                addKafkaEvent(`cargo.${newStatus.toLowerCase()}`, data.tracking_number, newStatus);
                 showToast(`Kargo #${id} durumu "${newStatus}" yapıldı ve Kafka'ya iletildi.`);
                 fetchCargos();
             } catch (err) {
@@ -975,6 +1325,7 @@
                     showToast(data.error || 'Silinemedi', 'error');
                     return;
                 }
+                addKafkaEvent('cargo.deleted', `#${id}`, 'DELETED');
                 showToast(`Kargo #${id} silindi.`);
                 fetchCargos();
             } catch (err) {
@@ -987,6 +1338,7 @@
             try {
                 const res = await fetch('/reset', { method: 'POST' });
                 if (res.ok) {
+                    addKafkaEvent('system.reset', 'ALL', 'RESET');
                     showToast('Veritabanı başarıyla temizlendi.');
                     fetchCargos();
                 } else {
@@ -1014,6 +1366,7 @@
                     showToast(data.error || 'Kargo oluşturulamadı', 'error');
                     return;
                 }
+                addKafkaEvent('cargo.created', tracking_number, 'CREATED');
                 showToast(`"${tracking_number}" kargosu kaydedildi ve Kafka'ya fırlatıldı!`);
                 document.getElementById('createCargoForm').reset();
                 generateTrackingNumber();
@@ -1032,6 +1385,7 @@
             try {
                 // 1. Reset first
                 await fetch('/reset', { method: 'POST' });
+                addKafkaEvent('scenario.started', '20-CARGOS', 'INIT');
 
                 // 2. Create 20 cargos with EMN- prefix
                 for (let i = 1; i <= 20; i++) {
@@ -1079,6 +1433,7 @@
                     }
                 }
 
+                addKafkaEvent('scenario.completed', '20-CARGOS', 'SUCCESS');
                 showToast('20 kargoluk senaryo tamamlandı! Grafana ve tablolar güncellendi.', 'success');
                 fetchCargos();
             } catch (err) {
@@ -1093,6 +1448,7 @@
         initTheme();
         generateTrackingNumber();
         fetchCargos();
+        renderKafkaLogs();
         setInterval(fetchCargos, 4000);
     </script>
 </body>
