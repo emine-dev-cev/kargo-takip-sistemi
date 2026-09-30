@@ -1,30 +1,145 @@
 <!DOCTYPE html>
-<html lang="tr" class="notranslate" translate="no">
+<html lang="tr" class="notranslate" translate="no" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google" content="notranslate">
     <title>Emine Logistics | Canlı Kargo ve Operasyon Merkezi</title>
     
+    <!-- Script to immediately set theme before render to avoid flash -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('app-theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
     <!-- Bootstrap 5.3 & FontAwesome & Plus Jakarta Sans Font -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        :root {
+        /* ==================== THEME VARIABLES ==================== */
+        :root, [data-theme="dark"] {
             --bg-body: #070a14;
-            --bg-card: #0f172a;
+            --bg-radial-1: rgba(99, 102, 241, 0.22);
+            --bg-radial-2: rgba(236, 72, 153, 0.18);
+            --bg-radial-3: rgba(6, 182, 212, 0.15);
+            --bg-card: rgba(15, 23, 42, 0.78);
             --bg-card-alt: #131d38;
             --border-card: #1e2d4d;
             --border-glow: #6366f1;
+            
+            --text-main: #f8fafc;
+            --text-title: #ffffff;
+            --text-muted: #94a3b8;
+            
+            --navbar-bg: rgba(15, 23, 42, 0.88);
+            --navbar-border: rgba(99, 102, 241, 0.25);
+            --navbar-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            
+            --hero-bg: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(168, 85, 247, 0.22) 50%, rgba(236, 72, 153, 0.2) 100%);
+            --hero-border: rgba(168, 85, 247, 0.4);
+            --hero-title: #ffffff;
+            --hero-desc: rgba(255, 255, 255, 0.82);
+            --hero-btn-bg: rgba(255, 255, 255, 0.15);
+            --hero-btn-border: rgba(255, 255, 255, 0.3);
+            
+            --stat-bg: linear-gradient(145deg, rgba(19, 29, 56, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+            --stat-num: #ffffff;
+            
+            --input-bg: #090e1a;
+            --input-border: #1f2d4a;
+            --input-text: #f1f5f9;
+            
+            --table-container-bg: #0b1124;
+            --table-header-bg: #080d1c;
+            --table-header-text: #818cf8;
+            --table-border: rgba(255, 255, 255, 0.07);
+            --table-hover: rgba(99, 102, 241, 0.14);
+            --table-text-main: #f8fafc;
+            
+            --btn-nav-bg: rgba(255, 255, 255, 0.06);
+            --btn-nav-border: rgba(255, 255, 255, 0.15);
+            --btn-nav-text: #e2e8f0;
+            
+            --user-pill-bg: rgba(99, 102, 241, 0.12);
+            --user-pill-border: rgba(99, 102, 241, 0.35);
+            --user-pill-text: #ffffff;
+            
+            --theme-btn-bg: rgba(99, 102, 241, 0.15);
+            --theme-btn-border: rgba(99, 102, 241, 0.35);
+            --theme-btn-text: #e2e8f0;
+            
             --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
             --gradient-cyan: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
             --gradient-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
             --gradient-amber: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             --gradient-rose: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #f1f5f9;
+            --bg-radial-1: rgba(99, 102, 241, 0.12);
+            --bg-radial-2: rgba(236, 72, 153, 0.08);
+            --bg-radial-3: rgba(6, 182, 212, 0.09);
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --bg-card-alt: #f8fafc;
+            --border-card: #e2e8f0;
+            --border-glow: #6366f1;
+            
+            --text-main: #0f172a;
+            --text-title: #0f172a;
+            --text-muted: #64748b;
+            
+            --navbar-bg: rgba(255, 255, 255, 0.92);
+            --navbar-border: rgba(99, 102, 241, 0.2);
+            --navbar-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            
+            --hero-bg: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.1) 50%, rgba(236, 72, 153, 0.1) 100%);
+            --hero-border: rgba(168, 85, 247, 0.3);
+            --hero-title: #1e1b4b;
+            --hero-desc: #475569;
+            --hero-btn-bg: rgba(255, 255, 255, 0.85);
+            --hero-btn-border: rgba(99, 102, 241, 0.25);
+            
+            --stat-bg: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            --stat-num: #0f172a;
+            
+            --input-bg: #ffffff;
+            --input-border: #cbd5e1;
+            --input-text: #0f172a;
+            
+            --table-container-bg: #ffffff;
+            --table-header-bg: #f8fafc;
+            --table-header-text: #4338ca;
+            --table-border: #e2e8f0;
+            --table-hover: rgba(99, 102, 241, 0.06);
+            --table-text-main: #1e293b;
+            
+            --btn-nav-bg: rgba(0, 0, 0, 0.04);
+            --btn-nav-border: rgba(0, 0, 0, 0.12);
+            --btn-nav-text: #334155;
+            
+            --user-pill-bg: rgba(99, 102, 241, 0.08);
+            --user-pill-border: rgba(99, 102, 241, 0.22);
+            --user-pill-text: #1e1b4b;
+            
+            --theme-btn-bg: rgba(99, 102, 241, 0.1);
+            --theme-btn-border: rgba(99, 102, 241, 0.25);
+            --theme-btn-text: #334155;
+            
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            --gradient-cyan: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            --gradient-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --gradient-amber: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --gradient-rose: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+        }
+
+        /* ==================== GLOBAL STYLES ==================== */
+        * {
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.15s ease;
         }
 
         body {
@@ -33,19 +148,19 @@
             color: var(--text-main);
             min-height: 100vh;
             background-image: 
-                radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.22) 0px, transparent 45%),
-                radial-gradient(circle at 90% 20%, rgba(236, 72, 153, 0.18) 0px, transparent 45%),
-                radial-gradient(circle at 50% 90%, rgba(6, 182, 212, 0.15) 0px, transparent 50%);
+                radial-gradient(circle at 10% 10%, var(--bg-radial-1) 0px, transparent 45%),
+                radial-gradient(circle at 90% 20%, var(--bg-radial-2) 0px, transparent 45%),
+                radial-gradient(circle at 50% 90%, var(--bg-radial-3) 0px, transparent 50%);
             background-attachment: fixed;
             padding-bottom: 50px;
         }
 
         /* Navbar */
         .navbar-custom {
-            background: rgba(15, 23, 42, 0.88);
+            background: var(--navbar-bg);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.25);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid var(--navbar-border);
+            box-shadow: var(--navbar-shadow);
         }
 
         .brand-avatar {
@@ -58,41 +173,92 @@
             justify-content: center;
             color: white;
             font-size: 1.35rem;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.45);
+        }
+
+        .brand-title {
+            color: var(--text-title);
         }
 
         .user-pill {
-            background: rgba(99, 102, 241, 0.12);
-            border: 1px solid rgba(99, 102, 241, 0.35);
+            background: var(--user-pill-bg);
+            border: 1px solid var(--user-pill-border);
             padding: 0.4rem 0.95rem;
             border-radius: 30px;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-size: 0.88rem;
+            color: var(--user-pill-text);
         }
 
-        /* Custom Cards */
+        /* Theme Toggle Button */
+        .btn-theme-toggle {
+            background: var(--theme-btn-bg);
+            border: 1px solid var(--theme-btn-border);
+            color: var(--theme-btn-text);
+            border-radius: 30px;
+            padding: 0.45rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-theme-toggle:hover {
+            transform: translateY(-2px);
+            border-color: #a855f7;
+            box-shadow: 0 6px 16px rgba(168, 85, 247, 0.25);
+            color: var(--theme-btn-text);
+        }
+
+        /* Custom Glass Cards */
         .glass-card {
-            background-color: rgba(15, 23, 42, 0.75);
+            background-color: var(--bg-card);
             backdrop-filter: blur(16px);
             border: 1px solid var(--border-card);
             border-radius: 20px;
-            box-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.6);
-            transition: all 0.25s ease;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
         }
 
         .glass-card:hover {
-            border-color: rgba(99, 102, 241, 0.45);
-            box-shadow: 0 15px 40px -10px rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 15px 40px -10px rgba(99, 102, 241, 0.18);
+        }
+
+        .card-heading {
+            color: var(--text-title);
         }
 
         /* Hero Banner */
         .hero-banner {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(168, 85, 247, 0.22) 50%, rgba(236, 72, 153, 0.2) 100%);
-            border: 1px solid rgba(168, 85, 247, 0.4) !important;
+            background: var(--hero-bg);
+            border: 1px solid var(--hero-border) !important;
             border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(168, 85, 247, 0.2);
+            box-shadow: 0 8px 32px rgba(168, 85, 247, 0.15);
+        }
+
+        .hero-title {
+            color: var(--hero-title);
+        }
+
+        .hero-desc {
+            color: var(--hero-desc);
+        }
+
+        .hero-btn-sample {
+            background: var(--hero-btn-bg);
+            border: 1px solid var(--hero-btn-border);
+            color: var(--text-title);
+        }
+
+        .hero-btn-sample:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: var(--text-title);
         }
 
         /* Stat Cards */
@@ -100,7 +266,7 @@
             padding: 1.4rem;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(145deg, rgba(19, 29, 56, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+            background: var(--stat-bg);
             border-radius: 20px;
         }
 
@@ -117,6 +283,10 @@
         .stat-delivered::before { background: var(--gradient-emerald); }
         .stat-transit::before { background: var(--gradient-amber); }
         .stat-cancelled::before { background: var(--gradient-rose); }
+
+        .stat-number {
+            color: var(--stat-num);
+        }
 
         .stat-icon {
             width: 52px;
@@ -147,29 +317,35 @@
             display: inline-block;
         }
 
-        .status-CREATED { background: rgba(56, 189, 248, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.45); }
+        .status-CREATED { background: rgba(56, 189, 248, 0.16); color: #0284c7; border: 1px solid rgba(56, 189, 248, 0.45); }
+        [data-theme="dark"] .status-CREATED { color: #38bdf8; }
         .status-CREATED .badge-dot { background: #38bdf8; box-shadow: 0 0 8px #38bdf8; }
 
-        .status-SHIPPED { background: rgba(245, 158, 11, 0.18); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.45); }
+        .status-SHIPPED { background: rgba(245, 158, 11, 0.16); color: #d97706; border: 1px solid rgba(245, 158, 11, 0.45); }
+        [data-theme="dark"] .status-SHIPPED { color: #fbbf24; }
         .status-SHIPPED .badge-dot { background: #fbbf24; box-shadow: 0 0 8px #fbbf24; }
 
-        .status-IN_TRANSIT { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.5); }
+        .status-IN_TRANSIT { background: rgba(168, 85, 247, 0.18); color: #9333ea; border: 1px solid rgba(168, 85, 247, 0.5); }
+        [data-theme="dark"] .status-IN_TRANSIT { color: #c084fc; }
         .status-IN_TRANSIT .badge-dot { background: #c084fc; box-shadow: 0 0 8px #c084fc; }
 
-        .status-OUT_FOR_DELIVERY { background: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.5); }
+        .status-OUT_FOR_DELIVERY { background: rgba(236, 72, 153, 0.18); color: #db2777; border: 1px solid rgba(236, 72, 153, 0.5); }
+        [data-theme="dark"] .status-OUT_FOR_DELIVERY { color: #f472b6; }
         .status-OUT_FOR_DELIVERY .badge-dot { background: #f472b6; box-shadow: 0 0 8px #f472b6; }
 
-        .status-DELIVERED { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.5); }
+        .status-DELIVERED { background: rgba(16, 185, 129, 0.18); color: #059669; border: 1px solid rgba(16, 185, 129, 0.5); }
+        [data-theme="dark"] .status-DELIVERED { color: #34d399; }
         .status-DELIVERED .badge-dot { background: #34d399; box-shadow: 0 0 8px #34d399; }
 
-        .status-CANCELLED { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.5); }
+        .status-CANCELLED { background: rgba(244, 63, 94, 0.18); color: #e11d48; border: 1px solid rgba(244, 63, 94, 0.5); }
+        [data-theme="dark"] .status-CANCELLED { color: #fb7185; }
         .status-CANCELLED .badge-dot { background: #fb7185; box-shadow: 0 0 8px #fb7185; }
 
         /* Form Controls */
         .form-control, .form-select {
-            background-color: #090e1a !important;
-            border: 1px solid #1f2d4a !important;
-            color: #f1f5f9 !important;
+            background-color: var(--input-bg) !important;
+            border: 1px solid var(--input-border) !important;
+            color: var(--input-text) !important;
             border-radius: 12px;
             padding: 0.72rem 1rem;
             font-size: 0.92rem;
@@ -178,14 +354,14 @@
 
         .form-control:focus, .form-select:focus {
             border-color: #a855f7 !important;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.35) !important;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3) !important;
         }
 
         /* Buttons */
         .btn-gradient-primary {
             background: var(--gradient-primary);
             border: none;
-            color: white;
+            color: white !important;
             font-weight: 700;
             border-radius: 12px;
             padding: 0.78rem 1.3rem;
@@ -197,13 +373,13 @@
             opacity: 0.95;
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(168, 85, 247, 0.55);
-            color: white;
+            color: white !important;
         }
 
         .btn-gradient-warning {
             background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
             border: none;
-            color: white;
+            color: white !important;
             font-weight: 700;
             box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
             transition: all 0.2s ease;
@@ -212,13 +388,13 @@
         .btn-gradient-warning:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 22px rgba(245, 158, 11, 0.5);
-            color: white;
+            color: white !important;
         }
 
         .btn-nav-action {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #e2e8f0;
+            background: var(--btn-nav-bg);
+            border: 1px solid var(--btn-nav-border);
+            color: var(--btn-nav-text);
             border-radius: 12px;
             padding: 0.5rem 0.95rem;
             font-size: 0.85rem;
@@ -231,17 +407,17 @@
         }
 
         .btn-nav-action:hover {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(99, 102, 241, 0.15);
             border-color: #38bdf8;
-            color: white;
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+            color: var(--btn-nav-text);
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
         }
 
-        /* Table Overrides - Eliminate All White Backgrounds */
+        /* Table Styling */
         .table-responsive {
-            background-color: #0b1124 !important;
+            background-color: var(--table-container-bg) !important;
             border-radius: 14px;
-            border: 1px solid #1e2d4d;
+            border: 1px solid var(--border-card);
         }
 
         table, .table, .table-custom,
@@ -249,13 +425,13 @@
         .table > :not(caption) > * > *,
         .table-custom > :not(caption) > * > * {
             background-color: transparent !important;
-            color: #e2e8f0 !important;
-            border-color: rgba(255, 255, 255, 0.07) !important;
+            color: var(--table-text-main) !important;
+            border-color: var(--table-border) !important;
         }
 
         .table-custom thead th {
-            background-color: #080d1c !important;
-            color: #818cf8 !important;
+            background-color: var(--table-header-bg) !important;
+            color: var(--table-header-text) !important;
             font-weight: 700;
             font-size: 0.78rem;
             text-transform: uppercase;
@@ -269,12 +445,22 @@
         }
 
         .table-custom tbody tr:hover td {
-            background-color: rgba(99, 102, 241, 0.14) !important;
+            background-color: var(--table-hover) !important;
         }
 
         .table-custom tbody td {
             padding: 1rem 1.1rem;
             vertical-align: middle;
+        }
+
+        .cell-tracking {
+            color: var(--text-title);
+            font-weight: 700;
+        }
+
+        .cell-sender {
+            color: var(--text-title);
+            font-weight: 600;
         }
 
         /* Live Indicator */
@@ -307,8 +493,8 @@
                 </div>
                 <div>
                     <div class="d-flex align-items-center gap-2">
-                        <span class="fw-bold text-white fs-5 tracking-tight">Emine Logistics</span>
-                        <span class="badge rounded-pill px-3 py-1" style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.3)); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4);">
+                        <span class="fw-bold brand-title fs-5 tracking-tight">Emine Logistics</span>
+                        <span class="badge rounded-pill px-3 py-1" style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.25)); color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.4);">
                             <i class="fa-solid fa-crown text-warning me-1"></i>Premium Operasyon
                         </span>
                     </div>
@@ -318,16 +504,25 @@
                 </div>
             </div>
 
-            <!-- Header Links -->
-            <div class="d-flex align-items-center gap-3 flex-wrap">
+            <!-- Header Links & Theme Toggle -->
+            <div class="d-flex align-items-center gap-2 gap-md-3 flex-wrap">
+                
+                <!-- Day / Night Mode Switcher Button -->
+                <button id="themeToggleBtn" class="btn-theme-toggle" onclick="toggleTheme()" title="Gece / Gündüz Modunu Değiştir">
+                    <i id="themeIcon" class="fa-solid fa-moon text-info"></i>
+                    <span id="themeText">Gece</span>
+                </button>
+
+                <!-- User Pill -->
                 <div class="user-pill d-none d-md-flex">
                     <div class="rounded-circle text-white d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-weight: bold; font-size: 0.8rem; background: var(--gradient-primary);">
                         E
                     </div>
-                    <span class="text-white fw-bold">Emine</span>
-                    <span class="badge rounded-pill px-2 py-0" style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 0.72rem; border: 1px solid rgba(16, 185, 129, 0.4);">Yönetici</span>
+                    <span class="fw-bold">Emine</span>
+                    <span class="badge rounded-pill px-2 py-0" style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 0.72rem; border: 1px solid rgba(16, 185, 129, 0.4);">Yönetici</span>
                 </div>
 
+                <!-- Fast Nav Links -->
                 <div class="d-flex gap-2">
                     <a href="http://localhost:3000/dashboards" target="_blank" class="btn-nav-action">
                         <i class="fa-solid fa-chart-line text-warning"></i> Grafana
@@ -351,15 +546,15 @@
         <div class="hero-banner p-4 mb-4">
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
                 <div>
-                    <h4 class="fw-bold text-white mb-1">
+                    <h4 class="fw-bold hero-title mb-1">
                         ✨ Hoş Geldiniz, Emine Hanım
                     </h4>
-                    <p class="text-white text-opacity-75 small mb-0">
+                    <p class="hero-desc small mb-0">
                         Kargo gönderilerinizi gerçek zamanlı yönetebilir, durumları değiştirebilir ve Kafka mesaj akışını anlık izleyebilirsiniz.
                     </p>
                 </div>
                 <div class="d-flex gap-2">
-                    <button class="btn btn-sm rounded-pill px-3 fw-bold text-white" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3);" onclick="autofillSample()">
+                    <button class="btn btn-sm rounded-pill px-3 fw-bold hero-btn-sample" onclick="autofillSample()">
                         <i class="fa-solid fa-wand-magic-sparkles text-warning me-1"></i> Örnek Doldur
                     </button>
                     <button class="btn btn-sm rounded-pill px-3 fw-bold btn-outline-danger" onclick="resetDatabase()">
@@ -376,10 +571,10 @@
                 <div class="glass-card stat-card stat-total">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <span class="text-cyan fw-bold text-uppercase tracking-wider small" style="color: #38bdf8;">TOPLAM KARGO</span>
-                            <h2 class="fw-bold text-white mb-0 mt-1" id="stat-total">0</h2>
+                            <span class="fw-bold text-uppercase tracking-wider small" style="color: #0284c7;">TOPLAM KARGO</span>
+                            <h2 class="fw-bold stat-number mb-0 mt-1" id="stat-total">0</h2>
                         </div>
-                        <div class="stat-icon text-cyan" style="background: rgba(6, 182, 212, 0.18); color: #38bdf8;">
+                        <div class="stat-icon" style="background: rgba(6, 182, 212, 0.18); color: #0284c7;">
                             <i class="fa-solid fa-boxes-stacked"></i>
                         </div>
                     </div>
@@ -390,10 +585,10 @@
                 <div class="glass-card stat-card stat-delivered">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <span class="fw-bold text-uppercase tracking-wider small" style="color: #34d399;">TESLİM EDİLEN</span>
-                            <h2 class="fw-bold mb-0 mt-1" style="color: #34d399;" id="stat-delivered">0</h2>
+                            <span class="fw-bold text-uppercase tracking-wider small" style="color: #10b981;">TESLİM EDİLEN</span>
+                            <h2 class="fw-bold stat-number mb-0 mt-1" style="color: #10b981;" id="stat-delivered">0</h2>
                         </div>
-                        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.18); color: #34d399;">
+                        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.18); color: #10b981;">
                             <i class="fa-solid fa-circle-check"></i>
                         </div>
                     </div>
@@ -404,10 +599,10 @@
                 <div class="glass-card stat-card stat-transit">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <span class="fw-bold text-uppercase tracking-wider small" style="color: #fbbf24;">YOLDA / DAĞITIMDA</span>
-                            <h2 class="fw-bold mb-0 mt-1" style="color: #fbbf24;" id="stat-intransit">0</h2>
+                            <span class="fw-bold text-uppercase tracking-wider small" style="color: #f59e0b;">YOLDA / DAĞITIMDA</span>
+                            <h2 class="fw-bold stat-number mb-0 mt-1" style="color: #f59e0b;" id="stat-intransit">0</h2>
                         </div>
-                        <div class="stat-icon" style="background: rgba(245, 158, 11, 0.18); color: #fbbf24;">
+                        <div class="stat-icon" style="background: rgba(245, 158, 11, 0.18); color: #f59e0b;">
                             <i class="fa-solid fa-truck-fast"></i>
                         </div>
                     </div>
@@ -418,10 +613,10 @@
                 <div class="glass-card stat-card stat-cancelled">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <span class="fw-bold text-uppercase tracking-wider small" style="color: #fb7185;">İPTAL EDİLEN</span>
-                            <h2 class="fw-bold mb-0 mt-1" style="color: #fb7185;" id="stat-cancelled">0</h2>
+                            <span class="fw-bold text-uppercase tracking-wider small" style="color: #f43f5e;">İPTAL EDİLEN</span>
+                            <h2 class="fw-bold stat-number mb-0 mt-1" style="color: #f43f5e;" id="stat-cancelled">0</h2>
                         </div>
-                        <div class="stat-icon" style="background: rgba(244, 63, 94, 0.18); color: #fb7185;">
+                        <div class="stat-icon" style="background: rgba(244, 63, 94, 0.18); color: #f43f5e;">
                             <i class="fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
@@ -439,10 +634,10 @@
                 <!-- Create Cargo Form -->
                 <div class="glass-card p-4 mb-4">
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h6 class="fw-bold text-white mb-0">
+                        <h6 class="fw-bold card-heading mb-0">
                             <i class="fa-solid fa-paper-plane text-info me-2"></i>Yeni Kargo Kaydet
                         </h6>
-                        <span class="badge rounded-pill px-2 py-1" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35);">Kafka Olayı</span>
+                        <span class="badge rounded-pill px-2 py-1" style="background: rgba(56, 189, 248, 0.15); color: #0284c7; border: 1px solid rgba(56, 189, 248, 0.35);">Kafka Olayı</span>
                     </div>
 
                     <form id="createCargoForm">
@@ -475,10 +670,10 @@
                 <!-- 20-Cargo Automated Scenario Runner -->
                 <div class="glass-card p-4">
                     <div class="d-flex align-items-center justify-content-between mb-2">
-                        <h6 class="fw-bold text-white mb-0">
+                        <h6 class="fw-bold card-heading mb-0">
                             <i class="fa-solid fa-bolt text-warning me-2"></i>20 Kargoluk Ödev Senaryosu
                         </h6>
-                        <span class="badge rounded-pill px-2 py-1" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35);">Otomatik</span>
+                        <span class="badge rounded-pill px-2 py-1" style="background: rgba(245, 158, 11, 0.15); color: #d97706; border: 1px solid rgba(245, 158, 11, 0.35);">Otomatik</span>
                     </div>
 
                     <p class="text-muted small mb-3" style="line-height: 1.5;">
@@ -504,7 +699,7 @@
                     <!-- Search and Filters -->
                     <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
                         <div>
-                            <h6 class="fw-bold text-white mb-0">
+                            <h6 class="fw-bold card-heading mb-0">
                                 <i class="fa-solid fa-list-check text-success me-2"></i>Canlı Kargo Operasyonları
                             </h6>
                             <span class="text-muted small">Gerçek SQLite Veritabanı ve Güncel Durumlar</span>
@@ -584,6 +779,33 @@
 
     <script>
         let allCargos = [];
+
+        // ==================== THEME CONTROLLER ====================
+        function initTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            updateThemeUI(currentTheme);
+        }
+
+        function updateThemeUI(theme) {
+            const icon = document.getElementById('themeIcon');
+            const text = document.getElementById('themeText');
+            if (theme === 'light') {
+                if (icon) icon.className = 'fa-solid fa-sun text-warning';
+                if (text) text.textContent = 'Gündüz';
+            } else {
+                if (icon) icon.className = 'fa-solid fa-moon text-info';
+                if (text) text.textContent = 'Gece';
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', nextTheme);
+            localStorage.setItem('app-theme', nextTheme);
+            updateThemeUI(nextTheme);
+            showToast(nextTheme === 'light' ? '☀️ Gündüz modu aktif edildi.' : '🌙 Gece modu aktif edildi.');
+        }
 
         // Descriptive Turkish labels for statuses
         const statusLabels = {
@@ -674,11 +896,11 @@
                     <tr>
                         <td class="text-muted fw-bold">#${c.id}</td>
                         <td>
-                            <span class="fw-bold text-white font-monospace">${c.tracking_number}</span>
+                            <span class="cell-tracking font-monospace">${c.tracking_number}</span>
                             <div class="text-muted" style="font-size: 0.72rem;">${c.created_at || ''}</div>
                         </td>
                         <td>
-                            <div class="text-white small fw-bold">${c.sender}</div>
+                            <div class="cell-sender small">${c.sender}</div>
                             <div class="text-muted small"><i class="fa-solid fa-arrow-right-long text-secondary me-1" style="font-size: 0.7rem;"></i>${c.receiver}</div>
                         </td>
                         <td>
@@ -868,6 +1090,7 @@
         }
 
         // Init
+        initTheme();
         generateTrackingNumber();
         fetchCargos();
         setInterval(fetchCargos, 4000);
