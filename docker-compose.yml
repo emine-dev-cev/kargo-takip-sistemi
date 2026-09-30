@@ -6,6 +6,9 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+      KAFKA_HEAP_OPTS: "-Xms64m -Xmx96m"
+      KAFKA_JVM_PERFORMANCE_OPTS: "-server -XX:+UseG1GC -XX:MaxGCPauseMillis=20"
+    mem_limit: 140m
     ports:
       - "2181:2181"
     healthcheck:
@@ -32,6 +35,12 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_HEAP_OPTS: "-Xms160m -Xmx220m"
+      KAFKA_JVM_PERFORMANCE_OPTS: "-server -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35"
+      KAFKA_LOG_CLEANER_ENABLE: "false"
+      KAFKA_NUM_NETWORK_THREADS: 2
+      KAFKA_NUM_IO_THREADS: 2
+    mem_limit: 280m
     healthcheck:
       test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
       interval: 10s
@@ -55,6 +64,7 @@ services:
       - KAFKA_TOPIC=cargo-events
     volumes:
       - cargo_db_data:/app/data
+    mem_limit: 80m
     depends_on:
       kafka:
         condition: service_healthy
@@ -70,6 +80,7 @@ services:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - KAFKA_TOPIC=cargo-events
       - KAFKA_GROUP_ID=cargo-consumer-group
+    mem_limit: 60m
     depends_on:
       kafka:
         condition: service_healthy
@@ -78,6 +89,12 @@ services:
     image: prom/prometheus:v2.50.0
     container_name: cargo_prometheus
     restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=2h'
+      - '--storage.tsdb.retention.size=50MB'
+    mem_limit: 50m
     ports:
       - "9090:9090"
     volumes:
@@ -99,6 +116,7 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_USERS_ALLOW_SIGN_UP=false
+    mem_limit: 80m
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
