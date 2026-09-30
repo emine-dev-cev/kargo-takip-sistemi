@@ -12,7 +12,8 @@ from app.metrics import (
     cargo_created_total,
     cargo_delivered_total,
     cargo_cancelled_total,
-    cargo_status_changed_total
+    cargo_status_changed_total,
+    sync_metrics_with_db
 )
 from app.kafka_producer import kafka_producer
 
@@ -46,8 +47,8 @@ def handle_create_cargo():
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
 
-    # Increment metric
-    cargo_created_total.inc()
+    # Increment metric & sync with DB
+    sync_metrics_with_db(db_path)
 
     # Emit Kafka event
     kafka_producer.send_cargo_created(cargo['id'], cargo['tracking_number'])
@@ -99,16 +100,16 @@ def handle_update_cargo_status(cargo_id: int):
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
 
-    # Increment status change metric
+    # Increment status change metric & sync with DB
     cargo_status_changed_total.inc()
     kafka_producer.send_cargo_status_changed(cargo_id, new_status)
 
     if new_status == "DELIVERED":
-        cargo_delivered_total.inc()
         kafka_producer.send_cargo_delivered(cargo_id)
     elif new_status == "CANCELLED":
-        cargo_cancelled_total.inc()
         kafka_producer.send_cargo_cancelled(cargo_id)
+
+    sync_metrics_with_db(db_path)
 
     return jsonify(updated_cargo), 200
 
@@ -121,6 +122,7 @@ def handle_delete_cargo(cargo_id: int):
     if not deleted:
         return jsonify({"error": "Cargo not found"}), 404
 
+    sync_metrics_with_db(db_path)
     return jsonify({"message": "Cargo deleted successfully"}), 200
 
 
@@ -135,5 +137,10 @@ def handle_reset_system():
     cursor.execute("DELETE FROM sqlite_sequence WHERE name='cargo'")
     conn.commit()
     conn.close()
+
+    cargo_created_total.set(0)
+    cargo_delivered_total.set(0)
+    cargo_cancelled_total.set(0)
+    cargo_status_changed_total.set(0)
     return jsonify({"message": "Database reset successfully"}), 200
 

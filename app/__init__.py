@@ -39,12 +39,8 @@ def create_app(config_override: dict = None) -> Flask:
 
     # Sync initial metric counts with SQLite DB state on startup
     try:
-        from app.models import get_all_cargos
-        from app.metrics import cargo_created_total, cargo_delivered_total, cargo_cancelled_total, cargo_status_changed_total
-        cargos = get_all_cargos(db_path)
-        if cargos:
-            # We initialize / increment counters to match persistent DB if needed
-            pass
+        from app.metrics import sync_metrics_with_db
+        sync_metrics_with_db(db_path)
     except Exception as e:
         logger.warning(f"Could not sync metrics with DB: {e}")
 
